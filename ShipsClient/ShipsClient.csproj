@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,7 +56,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Auth\AuthWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Auth\RegistrationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BattleWindow\BattleWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,15 +72,67 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Common\ByteBuffer.cs" />
-    <Compile Include="Common\Packet.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Auth\AuthWindow.xaml.cs">
+      <DependentUpon>AuthWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Auth\RegistrationWindow.xaml.cs">
+      <DependentUpon>RegistrationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationWindow\NotificationWindow.xaml.cs">
+      <DependentUpon>NotificationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationWindow\DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PreBattleWindow\PreBattleWindow.xaml.cs">
+      <DependentUpon>PreBattleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Messages\AuthMessages.cs" />
+    <Compile Include="Messages\RegMessages.cs" />
+    <Compile Include="src\Common\Constans.cs" />
+    <Compile Include="src\Game\Board.cs" />
+    <Compile Include="src\Game\BoardCell.cs" />
+    <Compile Include="src\Game\BoardCellClickEventErgs.cs" />
+    <Compile Include="src\Game\DraggableShip.cs" />
+    <Compile Include="src\Enums\BattleResponse.cs" />
+    <Compile Include="src\Enums\BoardStatus.cs" />
+    <Compile Include="src\Enums\BoardCellState.cs" />
+    <Compile Include="src\Enums\ShipOrientation.cs" />
+    <Compile Include="src\Enums\ShotResult.cs" />
+    <Compile Include="src\Game\Rect.cs" />
+    <Compile Include="src\Game\Ship.cs" />
+    <Compile Include="src\Enums\AuthResponse.cs" />
+    <Compile Include="src\Enums\RegResponse.cs" />
+    <Compile Include="src\Protocol\ByteBuffer.cs" />
+    <Compile Include="src\Protocol\Handlers.cs" />
+    <Compile Include="src\Protocol\Opcodes.cs" />
+    <Compile Include="src\Protocol\Packet.cs" />
+    <Compile Include="BattleWindow\BattleWindow.xaml.cs">
+      <DependentUpon>BattleWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NotificationWindow\NotificationWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NotificationWindow\DialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PreBattleWindow\PreBattleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Network\ClientSocket.cs" />
+    <Compile Include="src\Network\ClientSocket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -94,9 +155,97 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Fonts\seabattle.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\play_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\join.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\join_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\area.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\Button2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\Button2-Hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\background-battle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\background-prebattle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ships\ship-1-crash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ships\ship-1-normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ships\ship-2-crash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ships\ship-2-normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ships\ship-3-crash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ships\ship-3-normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ships\ship-4-crash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ships\ship-4-normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\battlearea.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\random_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\random.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Profile\profile-mainmenu-right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Profile\profile-mainmenu-right-hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Notification\notification.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Battle\arrow_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Battle\arrow_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Battle\missed_cell.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

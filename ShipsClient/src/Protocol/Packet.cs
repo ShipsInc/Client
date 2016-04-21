@@ -15,16 +15,9 @@ namespace ShipsClient.Common
             this.Opcode = 0;
         }
 
-        public Packet(int opcode, int size = 200) : base()
+        public Packet(int opcode) : base()
         {
             this.Opcode = opcode;
-        }
-
-        public void Initialize(int opcode, int newres = 200)
-        {
-            Clear();
-            _storage.Capacity = newres;
-            Opcode = opcode;
         }
     }
 }

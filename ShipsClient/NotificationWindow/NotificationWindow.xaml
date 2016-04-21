@@ -1,0 +1,30 @@
+﻿<Window x:Class="ShipsClient.NotificationWindow.NotificationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShipsClient.NotificationWindow"
+        mc:Ignorable="d"
+        Title="Информация" Height="236" Width="341" WindowStyle="None" Background="Transparent" AllowsTransparency="True" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown" Loaded="Window_Loaded">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="0.95" Duration="0:0:0.5"  FillBehavior="HoldEnd" AutoReverse="False"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
+        <Rectangle RadiusX="20" RadiusY="20" Width="Auto" Height="Auto" Grid.RowSpan="3" Margin="0">
+            <Rectangle.Effect>
+                <DropShadowEffect Opacity="0.2" RenderingBias="Quality"/>
+            </Rectangle.Effect>
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="../Resources/Notification/notification.png"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <TextBlock x:Name="_lbContent" Text="" TextWrapping="Wrap" Foreground="#4114cb" HorizontalAlignment="Left" Margin="35,38,0,0" VerticalAlignment="Top" Height="103" Width="273" FontSize="21" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2"/>
+        <Button x:Name="_btOk" Content="Хорошо" Style = "{StaticResource ButtonTemplateStyle}" Height="50" Margin="100,162,98,24" Click="_btOk_Click"/>
+    </Grid>
+</Window>
