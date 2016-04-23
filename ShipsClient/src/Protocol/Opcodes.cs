@@ -24,6 +24,7 @@
         SMSG_BATTLE_SHIP_DROWNED            = 0x014,
         CMSG_BATTLE_LEAVE                   = 0x015,
         SMSG_BATTLE_OPONENT_LEAVE           = 0x016,
+        SMSG_BATTLE_FINISH                  = 0x017,
         MAX_OPCODE,
     }
 }

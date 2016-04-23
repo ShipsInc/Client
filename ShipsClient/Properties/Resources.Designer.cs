@@ -283,9 +283,9 @@ namespace ShipsClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ship_1_crash {
+        internal static System.Drawing.Bitmap ship_1_crash_0 {
             get {
-                object obj = ResourceManager.GetObject("ship_1_crash", resourceCulture);
+                object obj = ResourceManager.GetObject("ship_1_crash_0", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -293,9 +293,9 @@ namespace ShipsClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ship_1_normal {
+        internal static System.Drawing.Bitmap ship_1_crash_01 {
             get {
-                object obj = ResourceManager.GetObject("ship_1_normal", resourceCulture);
+                object obj = ResourceManager.GetObject("ship_1_crash_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -303,9 +303,9 @@ namespace ShipsClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ship_2_crash {
+        internal static System.Drawing.Bitmap ship_1_crash_1 {
             get {
-                object obj = ResourceManager.GetObject("ship_2_crash", resourceCulture);
+                object obj = ResourceManager.GetObject("ship_1_crash_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -313,9 +313,9 @@ namespace ShipsClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ship_2_normal {
+        internal static System.Drawing.Bitmap ship_1_normal_0 {
             get {
-                object obj = ResourceManager.GetObject("ship_2_normal", resourceCulture);
+                object obj = ResourceManager.GetObject("ship_1_normal_0", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -323,9 +323,9 @@ namespace ShipsClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ship_3_crash {
+        internal static System.Drawing.Bitmap ship_1_normal_01 {
             get {
-                object obj = ResourceManager.GetObject("ship_3_crash", resourceCulture);
+                object obj = ResourceManager.GetObject("ship_1_normal_01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -333,9 +333,9 @@ namespace ShipsClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ship_3_normal {
+        internal static System.Drawing.Bitmap ship_1_normal_1 {
             get {
-                object obj = ResourceManager.GetObject("ship_3_normal", resourceCulture);
+                object obj = ResourceManager.GetObject("ship_1_normal_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -343,9 +343,9 @@ namespace ShipsClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ship_4_crash {
+        internal static System.Drawing.Bitmap ship_2_crash_0 {
             get {
-                object obj = ResourceManager.GetObject("ship_4_crash", resourceCulture);
+                object obj = ResourceManager.GetObject("ship_2_crash_0", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -353,9 +353,169 @@ namespace ShipsClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ship_4_normal {
+        internal static System.Drawing.Bitmap ship_2_crash_01 {
             get {
-                object obj = ResourceManager.GetObject("ship_4_normal", resourceCulture);
+                object obj = ResourceManager.GetObject("ship_2_crash_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_2_crash_1 {
+            get {
+                object obj = ResourceManager.GetObject("ship_2_crash_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_2_normal_0 {
+            get {
+                object obj = ResourceManager.GetObject("ship_2_normal_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_2_normal_01 {
+            get {
+                object obj = ResourceManager.GetObject("ship_2_normal_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_2_normal_1 {
+            get {
+                object obj = ResourceManager.GetObject("ship_2_normal_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_3_crash_0 {
+            get {
+                object obj = ResourceManager.GetObject("ship_3_crash_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_3_crash_01 {
+            get {
+                object obj = ResourceManager.GetObject("ship_3_crash_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_3_crash_1 {
+            get {
+                object obj = ResourceManager.GetObject("ship_3_crash_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_3_normal_0 {
+            get {
+                object obj = ResourceManager.GetObject("ship_3_normal_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_3_normal_01 {
+            get {
+                object obj = ResourceManager.GetObject("ship_3_normal_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_3_normal_1 {
+            get {
+                object obj = ResourceManager.GetObject("ship_3_normal_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_4_crash_0 {
+            get {
+                object obj = ResourceManager.GetObject("ship_4_crash_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_4_crash_01 {
+            get {
+                object obj = ResourceManager.GetObject("ship_4_crash_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_4_crash_1 {
+            get {
+                object obj = ResourceManager.GetObject("ship_4_crash_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_4_normal_0 {
+            get {
+                object obj = ResourceManager.GetObject("ship_4_normal_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_4_normal_01 {
+            get {
+                object obj = ResourceManager.GetObject("ship_4_normal_01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ship_4_normal_1 {
+            get {
+                object obj = ResourceManager.GetObject("ship_4_normal_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

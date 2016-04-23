@@ -39,7 +39,7 @@ namespace ShipsClient.Game
                 for (var j = 0; j < Constants.BOARD_SIZE; ++j)
                 {
                     var state = packet.ReadUInt8();
-                    _cells[i, j] = new BoardCell(i, j, (BoardCellState)state);
+                    _cells[i, j] = new BoardCell(this, i, j, (BoardCellState)state);
                 }
             }
 
@@ -88,12 +88,12 @@ namespace ShipsClient.Game
             {
                 foreach (var point in points)
                 {
-                    var cell = new BoardCell(point.X, point.Y)
+                    var cell = new BoardCell(this, point.X, point.Y)
                     {
-                        Margin = new Thickness(point.Y*Constants.CELL_SIZE + 3, point.X*Constants.CELL_SIZE + 3, 0, 0),
+                        Margin = new Thickness(point.Y * Constants.CELL_SIZE + 3, point.X * Constants.CELL_SIZE + 3, 0, 0),
                         Width = Constants.CELL_SIZE,
                         Height = Constants.CELL_SIZE,
-                        State = BoardCellState.Normal
+                        State = BoardCellState.BOARD_CELL_STATE_NORMAL
                     };
                     cell.MouseLeftButtonDown += OnCellMouseDown;
                     cell.DragEnter += OnCellDragEnter;
@@ -132,16 +132,14 @@ namespace ShipsClient.Game
 
         private void OnCellMouseDown(object sender, MouseEventArgs e)
         {
-            if (Status == BoardStatus.BOARD_STATUS_BATTLE || !_drawShips)
+            if (Status != BoardStatus.BOARD_STATUS_CREATE || !_drawShips)
                 return;
 
             var cell = (BoardCell)sender;
             var ship = GetShipAt(cell.X, cell.Y);
 
             if (ship == null)
-            {
                 return;
-            }
 
             _draggedShip = DraggableShip.From(ship);
             DragDrop.DoDragDrop(cell, ship, DragDropEffects.Copy | DragDropEffects.Move);
@@ -162,7 +160,7 @@ namespace ShipsClient.Game
             _draggedShip.Rotate();
             _draggedShip.IsOrientationModified = !isRotated;
 
-            var state = CanPlaceShip(_draggedShip, _draggedShip.X, _draggedShip.Y) ? BoardCellState.ShipDrag : BoardCellState.ShipDragInvalid;
+            var state = CanPlaceShip(_draggedShip, _draggedShip.X, _draggedShip.Y) ? BoardCellState.BOARD_CELL_STATE_SHIP_DRAG : BoardCellState.BOARD_CELL_STATE_SHIP_DRAG_INVALID;
             DrawShip(_draggedShip, state);
         }
 
@@ -174,16 +172,14 @@ namespace ShipsClient.Game
                 _draggedShip.MoveTo(cell.X, cell.Y);
 
                 var canPlaceShip = CanPlaceShip(_draggedShip, cell.X, cell.Y);
-                var state = canPlaceShip ? BoardCellState.ShipDrag : BoardCellState.ShipDragInvalid;
+                var state = canPlaceShip ? BoardCellState.BOARD_CELL_STATE_SHIP_DRAG : BoardCellState.BOARD_CELL_STATE_SHIP_DRAG_INVALID;
 
                 DrawShip(_draggedShip, state);
 
                 e.Effects = canPlaceShip ? DragDropEffects.Move : DragDropEffects.None;
             }
             else
-            {
                 e.Effects = DragDropEffects.None;
-            }
         }
 
         private void OnCellDragLeave(object sender, EventArgs e)
@@ -220,12 +216,13 @@ namespace ShipsClient.Game
             }
         }
 
-        public void AddShip(Ship ship, int x, int y)
+        public void AddShip(Ship ship, int x, int y, bool onlyAdded = false)
         {
             ship.MoveTo(x, y);
-
             _ships.Add(ship);
-            DrawShip(ship, BoardCellState.Ship);
+
+            if (!onlyAdded)
+                DrawShip(ship, BoardCellState.BOARD_CELL_STATE_SHIP);
         }
 
         private bool CanPlaceShip(Ship ship, int x, int y)
@@ -269,7 +266,7 @@ namespace ShipsClient.Game
                     var ship = GetShipAt(point.X, point.Y);
                     _cells[point.X, point.Y].Dispatcher.Invoke(new Action(() =>
                     {
-                        _cells[point.X, point.Y].State = ship == null ? BoardCellState.Normal : BoardCellState.Ship;
+                        _cells[point.X, point.Y].State = ship == null ? BoardCellState.BOARD_CELL_STATE_NORMAL : BoardCellState.BOARD_CELL_STATE_SHIP;
                     }));
                 }
             }
@@ -309,7 +306,7 @@ namespace ShipsClient.Game
             var points = BoardRegion.GetPoints();
             foreach (var point in points)
             {
-                _cells[point.X, point.Y].State = BoardCellState.Normal;
+                _cells[point.X, point.Y].State = BoardCellState.BOARD_CELL_STATE_NORMAL;
             }
         }
 
@@ -383,18 +380,23 @@ namespace ShipsClient.Game
 
         public void UpdateCellState(int x, int y, ShotResult result)
         {
-            BoardCellState bState = BoardCellState.Normal;
+            BoardCellState bState = BoardCellState.BOARD_CELL_STATE_NORMAL;
             switch (result)
             {
                 case ShotResult.SHOT_RESULT_MISSED:
-                    bState = BoardCellState.MissedShot;
+                    bState = BoardCellState.BOARD_CELL_STATE_MISSED_SHOT;
                     break;
                 case ShotResult.SHOT_RESULT_SHIP_HIT:
-                    bState = BoardCellState.ShotShip;
+                    bState = BoardCellState.BOARD_CELL_STATE_SHOT_SHIP;
                     break;
                 case ShotResult.SHOT_RESULT_SHIP_DROWNED:
-                    bState = BoardCellState.ShowDrowned;
+                    bState = BoardCellState.BOARD_CELL_STATE_SHOW_DROWNED;
                     break;
+                case ShotResult.SHOT_RESULT_RESET_CELL:
+                    bState = BoardCellState.BOARD_CELL_STATE_NORMAL; // Сбрасываем клетки
+                    break;
+                case ShotResult.SHOT_RESULT_YOU_SHOT_IT_CELL:
+                    return;
                 default:
                     throw new NotSupportedException($"UpdateCellState not supported result {result}");
             }

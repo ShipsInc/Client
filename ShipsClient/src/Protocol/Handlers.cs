@@ -3,6 +3,7 @@ using System.Windows;
 using ShipsClient.Auth;
 using ShipsClient.Common;
 using ShipsClient.Enums;
+using ShipsClient.Game;
 using ShipsClient.Messages;
 
 namespace ShipsClient.Protocol
@@ -45,6 +46,9 @@ namespace ShipsClient.Protocol
                     break;
                 case Opcodes.SMSG_BATTLE_OPONENT_LEAVE:
                     HandleBattleOponentLeave(packet);
+                    break;
+                case Opcodes.SMSG_BATTLE_FINISH:
+                    HandleBattleFinish(packet);
                     break;
                 case Opcodes.SMSG_KEEP_ALIVE:
                     break;
@@ -230,8 +234,14 @@ namespace ShipsClient.Protocol
                 {
                     var x = packet.ReadInt16();
                     var y = packet.ReadInt16();
-                    BattleWindow.BattleWindow.Form.ShotResult(x, y, ShotResult.SHOT_RESULT_SHIP_DROWNED);
+                    BattleWindow.BattleWindow.Form.ShotResult(x, y, ShotResult.SHOT_RESULT_RESET_CELL);
                 }
+
+                var length = packet.ReadUInt8();
+                var orientation = packet.ReadUInt8();
+                var shipX = packet.ReadInt16();
+                var shipY = packet.ReadInt16();
+                BattleWindow.BattleWindow.Form.ShipDrowned(new Ship(length, (ShipOrientation)orientation, shipX, shipY, length));
             }));
         }
 
@@ -240,6 +250,14 @@ namespace ShipsClient.Protocol
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 BattleWindow.BattleWindow.Form.EndBattle(true);
+            }));
+        }
+
+        private static void HandleBattleFinish(Packet packet)
+        {
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                BattleWindow.BattleWindow.Form.EndBattle(false, packet.ReadUInt8() == 1 ? true : false);
             }));
         }
     }

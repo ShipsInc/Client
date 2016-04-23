@@ -2,7 +2,7 @@
 {
     public enum ShipOrientation
     {
-        Horizontal,
-        Vertical
+        SHIP_ORIENTATION_HORIZONTAL             = 0,
+        SHIP_ORIENTATION_VERTICAL               = 1,
     }
 }

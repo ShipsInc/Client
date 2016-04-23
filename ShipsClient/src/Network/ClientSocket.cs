@@ -163,7 +163,7 @@ namespace ShipsClient.Network
             }
         }
 
-        public Packet ParsePacket(byte[] bytes)
+        private Packet ParsePacket(byte[] bytes)
         {
             var buffer = new ByteBuffer(bytes);
             UInt16 opcode = buffer.ReadUInt16();
@@ -181,7 +181,7 @@ namespace ShipsClient.Network
             return packet;
         }
 
-        public void WriteHeader(Packet packet)
+        private void WriteHeader(Packet packet)
         {
             byte[] bytes = packet.ToArray();
 

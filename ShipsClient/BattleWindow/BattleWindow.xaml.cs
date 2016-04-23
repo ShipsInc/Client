@@ -97,9 +97,12 @@ namespace ShipsClient.BattleWindow
             if (window.ShowDialog() == false)
                 return;
 
-            var packet = new Packet((int)Opcodes.CMSG_BATTLE_LEAVE);
-            packet.WriteInt32(BattleId);
-            ClientSocket.Instance.SendPacket(packet);
+            if (MyBoard.Status == BoardStatus.BOARD_STATUS_BATTLE)
+            {
+                var packet = new Packet((int)Opcodes.CMSG_BATTLE_LEAVE);
+                packet.WriteInt32(BattleId);
+                ClientSocket.Instance.SendPacket(packet);
+            }
 
             Close();
         }
@@ -114,11 +117,15 @@ namespace ShipsClient.BattleWindow
             _canShotCanvas.Visibility = Visibility.Visible;
         }
 
-        public void EndBattle(bool leave = false)
+        public void EndBattle(bool leave = false, bool win = false)
         {
             string text = "";
             if (leave) // Противник вышел из игры, ответ сервера
                 text = "Ваш противник покинул игру. Вы получаете очко победы!";
+            else if (win)
+                text = "Вы выйграли этот бой! Поздравляем!";
+            else
+                text = "Вы проиграли этот бой...";
 
             var window = new NotificationWindow.NotificationWindow("Завершение игры", text);
             window.ShowDialog();
@@ -130,29 +137,34 @@ namespace ShipsClient.BattleWindow
             if (!CanShot)
                 return;
 
+            _canShot = false;
             var packet = new Packet((int)Opcodes.CMSG_BATTLE_SHOT);
             packet.WriteInt32(BattleId);
             packet.WriteInt16((short)e.X);
             packet.WriteInt16((short)e.Y);
-            ClientSocket.Instance.SendPacket(packet);
+            ClientSocket.Instance.SendPacket(packet, true);
         }
 
         public void ShotResult(int x, int y, ShotResult result)
         {
             if (result == Enums.ShotResult.SHOT_RESULT_MISSED)
                 CanShot = false;
+            else
+                _canShot = true;
 
             OponentBoard.UpdateCellState(x, y, result);
         }
 
+        public void ShipDrowned(Ship ship)
+        {
+            OponentBoard.AddShip(ship, ship.X, ship.Y, true);
+            OponentBoard.UpdateCellState(ship.X, ship.Y, Enums.ShotResult.SHOT_RESULT_SHIP_DROWNED);
+        }
+        
         private void OnCanShotChanged()
         {
             var status = "";
-            if (_canShot)
-                status = "arrow_green.png";
-            else
-                status = "arrow_red.png";
-
+            status = _canShot ? "arrow_green.png" : "arrow_red.png";
             _canShotCanvas.Background = new ImageBrush(new BitmapImage(new Uri($"pack://application:,,,/Resources/Battle/{status}")));
         }
     }

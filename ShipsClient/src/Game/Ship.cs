@@ -1,4 +1,5 @@
-﻿using ShipsClient.Enums;
+﻿using System.Windows;
+using ShipsClient.Enums;
 
 namespace ShipsClient.Game
 {
@@ -38,8 +39,8 @@ namespace ShipsClient.Game
 
         public Rect GetShipRegion()
         {
-            var width = Orientation == ShipOrientation.Horizontal ? Length : 1;
-            var height = Orientation == ShipOrientation.Vertical ? Length : 1;
+            var width = Orientation == ShipOrientation.SHIP_ORIENTATION_HORIZONTAL ? Length : 1;
+            var height = Orientation == ShipOrientation.SHIP_ORIENTATION_VERTICAL ? Length : 1;
 
             return new Rect(X, Y, width, height);
         }
@@ -58,9 +59,9 @@ namespace ShipsClient.Game
 
         public void Rotate()
         {
-            Orientation = Orientation == ShipOrientation.Horizontal
-                ? ShipOrientation.Vertical
-                : ShipOrientation.Horizontal;
+            Orientation = Orientation == ShipOrientation.SHIP_ORIENTATION_HORIZONTAL
+                ? ShipOrientation.SHIP_ORIENTATION_VERTICAL
+                : ShipOrientation.SHIP_ORIENTATION_HORIZONTAL;
         }
     }
 }
