@@ -93,6 +93,7 @@
     <Compile Include="Messages\AuthMessages.cs" />
     <Compile Include="Messages\RegMessages.cs" />
     <Compile Include="src\Common\Constans.cs" />
+    <Compile Include="src\Common\Cryptography.cs" />
     <Compile Include="src\Game\Board.cs" />
     <Compile Include="src\Game\BoardCell.cs" />
     <Compile Include="src\Game\BoardCellClickEventErgs.cs" />
