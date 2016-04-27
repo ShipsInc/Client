@@ -145,7 +145,7 @@ namespace ShipsClient.Network
                 {
                     App.Current.Dispatcher.Invoke(new Action(() =>
                     {
-                        new NotificationWindow.NotificationWindow("Отключение от сервера", "Ой, что-то пошло не так и вы были отключяны от сервера...").ShowDialog();
+                        new NotificationWindow.NotificationWindow("Отключение от сервера", "Ой, что-то пошло не так и вы были отключаны от сервера...").ShowDialog();
                         Environment.Exit(0);
                     }));
                     return;
@@ -202,7 +202,7 @@ namespace ShipsClient.Network
                 {
                     App.Current.Dispatcher.Invoke(new Action(() =>
                     {
-                        new NotificationWindow.NotificationWindow("Отключение от сервера", "Ой, что-то пошло не так и вы были отключяны от сервера...").ShowDialog();
+                        new NotificationWindow.NotificationWindow("Отключение от сервера", "Ой, что-то пошло не так и вы были отключаны от сервера...").ShowDialog();
                         Environment.Exit(0);
                     }));
                     return;
@@ -225,7 +225,7 @@ namespace ShipsClient.Network
                 {
                     App.Current.Dispatcher.Invoke(new Action(() =>
                     {
-                        new NotificationWindow.NotificationWindow("Отключение от сервера", "Ой, что-то пошло не так и вы были отключяны от сервера...").ShowDialog();
+                        new NotificationWindow.NotificationWindow("Отключение от сервера", "Ой, что-то пошло не так и вы были отключаны от сервера...").ShowDialog();
                         Environment.Exit(0);
                     }));
                     return;

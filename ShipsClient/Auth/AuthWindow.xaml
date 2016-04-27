@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <Rectangle RadiusX="20" RadiusY="20" Width="Auto" Height="Auto" Grid.RowSpan="2" Margin="0">
             <Rectangle.Effect>
-                <DropShadowEffect Opacity="0.2" RenderingBias="Quality"/>
+                <DropShadowEffect Opacity="0.1" RenderingBias="Quality"/>
             </Rectangle.Effect>
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/ShipsClient;component/Resources/background.png"/>

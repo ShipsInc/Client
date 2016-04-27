@@ -63,6 +63,7 @@ namespace ShipsClient.Game
                     Width = Constants.CELL_SIZE;
                     Height = Constants.CELL_SIZE;
                     Padding = new Thickness();
+                    Content = string.Empty;
 
                     ship = _board.GetShipAt(X, Y);
                     if (ship != null && ship.X == X && ship.Y == Y)

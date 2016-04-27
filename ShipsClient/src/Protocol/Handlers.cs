@@ -50,6 +50,9 @@ namespace ShipsClient.Protocol
                 case Opcodes.SMSG_BATTLE_FINISH:
                     HandleBattleFinish(packet);
                     break;
+                case Opcodes.SMSG_BATTLE_OPONENT_SHOT_RESULT:
+                    HandleBattleOponentShotResult(packet);
+                    break;
                 case Opcodes.SMSG_KEEP_ALIVE:
                     break;
                 default:
@@ -175,8 +178,8 @@ namespace ShipsClient.Protocol
         private static void HandleBattleShotResult(Packet packet)
         {
             var result = packet.ReadUInt8();
-            var x = packet.ReadInt16();
-            var y = packet.ReadInt16();
+            var x = packet.ReadUInt8();
+            var y = packet.ReadUInt8();
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 BattleWindow.BattleWindow.Form.ShotResult(x, y, (ShotResult) result);
@@ -232,15 +235,15 @@ namespace ShipsClient.Protocol
             {
                 for (int i = 0; i < count; ++i)
                 {
-                    var x = packet.ReadInt16();
-                    var y = packet.ReadInt16();
+                    var x = packet.ReadUInt8();
+                    var y = packet.ReadUInt8();
                     BattleWindow.BattleWindow.Form.ShotResult(x, y, ShotResult.SHOT_RESULT_RESET_CELL);
                 }
 
                 var length = packet.ReadUInt8();
                 var orientation = packet.ReadUInt8();
-                var shipX = packet.ReadInt16();
-                var shipY = packet.ReadInt16();
+                var shipX = packet.ReadUInt8();
+                var shipY = packet.ReadUInt8();
                 BattleWindow.BattleWindow.Form.ShipDrowned(new Ship(length, (ShipOrientation)orientation, shipX, shipY, length));
             }));
         }
@@ -258,6 +261,17 @@ namespace ShipsClient.Protocol
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 BattleWindow.BattleWindow.Form.EndBattle(false, packet.ReadUInt8() == 1 ? true : false);
+            }));
+        }
+
+        private static void HandleBattleOponentShotResult(Packet packet)
+        {
+            var result = (ShotResult)packet.ReadUInt8();
+            var x = packet.ReadUInt8();
+            var y = packet.ReadUInt8();
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                BattleWindow.BattleWindow.Form.UpdateBoard(x, y, result);
             }));
         }
     }

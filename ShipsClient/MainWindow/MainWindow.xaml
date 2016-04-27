@@ -56,13 +56,13 @@
         </Grid.RowDefinitions>
         <Rectangle RadiusX="20" RadiusY="20" Width="Auto" Height="Auto" Grid.RowSpan="2" Margin="0">
             <Rectangle.Effect>
-                <DropShadowEffect Opacity="0.2" RenderingBias="Quality"/>
+                <DropShadowEffect Opacity="0.1" RenderingBias="Quality"/>
             </Rectangle.Effect>
             <Rectangle.Fill>
-                <ImageBrush ImageSource="/ShipsClient;component/Resources/background.png"/>
+                <ImageBrush ImageSource="/ShipsClient;component/Resources/os_background.png"/>
             </Rectangle.Fill>
         </Rectangle>
-        <DockPanel Margin="10,15,20,0">
+        <DockPanel Margin="15,15,22,0">
             <Button x:Name="_btClose" Template="{StaticResource ButtonTemplateWinClose}" Click="_btClose_Click" d:LayoutOverrides="Height, TopPosition, BottomPosition" Margin="0" DockPanel.Dock="Right"/>
             <Button x:Name="_btMinimize" Template="{StaticResource ButtonTemplateWinMin}" Click="_btMinimize_Click" d:LayoutOverrides="Height, TopPosition, BottomPosition" Margin="0,0,10,0" HorizontalAlignment="Right"/>
         </DockPanel>

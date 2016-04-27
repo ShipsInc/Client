@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -140,8 +141,8 @@ namespace ShipsClient.BattleWindow
             _canShot = false;
             var packet = new Packet((int)Opcodes.CMSG_BATTLE_SHOT);
             packet.WriteInt32(BattleId);
-            packet.WriteInt16((short)e.X);
-            packet.WriteInt16((short)e.Y);
+            packet.WriteUInt8((byte)e.X);
+            packet.WriteUInt8((byte)e.Y);
             ClientSocket.Instance.SendPacket(packet, true);
         }
 
@@ -157,6 +158,9 @@ namespace ShipsClient.BattleWindow
 
         public void ShipDrowned(Ship ship)
         {
+            if (ship == null)
+                return;
+
             OponentBoard.AddShip(ship, ship.X, ship.Y, true);
             OponentBoard.UpdateCellState(ship.X, ship.Y, Enums.ShotResult.SHOT_RESULT_SHIP_DROWNED);
         }
@@ -166,6 +170,22 @@ namespace ShipsClient.BattleWindow
             var status = "";
             status = _canShot ? "arrow_green.png" : "arrow_red.png";
             _canShotCanvas.Background = new ImageBrush(new BitmapImage(new Uri($"pack://application:,,,/Resources/Battle/{status}")));
+        }
+
+        public void UpdateBoard(int x, int y, ShotResult result)
+        {
+            if (result == Enums.ShotResult.SHOT_RESULT_SHIP_DROWNED)
+            {
+                var ship = MyBoard.GetShipAt(x, y);
+                if (ship != null)
+                {
+                    MyBoard.ResetShipRegion(x, y);
+                    MyBoard.UpdateCellState(ship.X, ship.Y, Enums.ShotResult.SHOT_RESULT_SHIP_DROWNED);
+                }
+                return;
+            }
+
+            MyBoard.UpdateCellState(x, y, result);
         }
     }
 }

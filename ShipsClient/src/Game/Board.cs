@@ -48,8 +48,8 @@ namespace ShipsClient.Game
             {
                 var length = packet.ReadUInt8();
                 var orientation = packet.ReadUInt8();
-                var x = packet.ReadInt16();
-                var y = packet.ReadInt16();
+                var x = packet.ReadUInt8();
+                var y = packet.ReadUInt8();
                 var hitCount = packet.ReadUInt8();
                 _ships.Add(new Ship(length, (ShipOrientation)orientation, x, y, hitCount));
             }
@@ -68,8 +68,8 @@ namespace ShipsClient.Game
             {
                 packet.WriteUInt8((byte)ship.Length);
                 packet.WriteUInt8((byte)ship.Orientation);
-                packet.WriteInt16((short)ship.X);
-                packet.WriteInt16((short)ship.Y);
+                packet.WriteUInt8((byte)ship.X);
+                packet.WriteUInt8((byte)ship.Y);
                 packet.WriteUInt8((byte)ship.HitCount);
             }
         }
@@ -374,6 +374,15 @@ namespace ShipsClient.Game
         public void Refresh()
         {
             RedrawRegion(BoardRegion);
+        }
+
+        public void ResetShipRegion(int x, int y)
+        {
+            var ship = GetShipAt(x, y);
+            if (ship == null)
+                return;
+
+            RedrawRegion(ship.GetShipRegion());
         }
 
         public BoardStatus Status { get; set; }
