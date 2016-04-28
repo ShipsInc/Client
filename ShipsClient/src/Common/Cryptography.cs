@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 
 namespace ShipsClient.Common
 {
-    public class Cryptography
+    public static class Cryptography
     {
         public static byte[] Encrypt(byte[] input)
         {

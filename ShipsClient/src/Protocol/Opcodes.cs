@@ -26,6 +26,8 @@
         SMSG_BATTLE_OPONENT_LEAVE           = 0x016,
         SMSG_BATTLE_FINISH                  = 0x017,
         SMSG_BATTLE_OPONENT_SHOT_RESULT     = 0x018,
+        CMSG_GET_STATISTICS                 = 0x019,
+        SMSG_GET_STATISTICS_RESPONSE        = 0x01A,
         MAX_OPCODE,
     }
 }

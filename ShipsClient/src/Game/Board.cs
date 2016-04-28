@@ -413,6 +413,6 @@ namespace ShipsClient.Game
             _cells[x, y].State = bState;
         }
 
-        public new event EventHandler<BoardCellClickEventErgs> OnClick;
+        public event EventHandler<BoardCellClickEventErgs> OnClick;
     }
 }

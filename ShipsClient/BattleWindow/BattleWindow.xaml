@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShipsClient"
         mc:Ignorable="d"
-        Title="Бой!" Height="365" Width="628" WindowStyle="None" Background="Transparent" AllowsTransparency="True" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closing="Window_Closing" Loaded="Window_Loaded">
+        Title="Бой!" Height="365" Width="628" WindowStyle="None" Background="Transparent" AllowsTransparency="True" WindowStartupLocation="CenterOwner" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closing="Window_Closing" Loaded="Window_Loaded">
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
             <BeginStoryboard>

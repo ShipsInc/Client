@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using ShipsClient.Auth;
+using ShipsClient.BattleWindow;
 using ShipsClient.Common;
 using ShipsClient.Enums;
 using ShipsClient.Game;
@@ -8,7 +9,7 @@ using ShipsClient.Messages;
 
 namespace ShipsClient.Protocol
 {
-    public class Handlers
+    public static class Handlers
     {
         public static void SelectHandler(Packet packet)
         {
@@ -53,6 +54,9 @@ namespace ShipsClient.Protocol
                 case Opcodes.SMSG_BATTLE_OPONENT_SHOT_RESULT:
                     HandleBattleOponentShotResult(packet);
                     break;
+                case Opcodes.SMSG_GET_STATISTICS_RESPONSE:
+                    HandleGetStatisticsResponse(packet);
+                    break;
                 case Opcodes.SMSG_KEEP_ALIVE:
                     break;
                 default:
@@ -63,7 +67,7 @@ namespace ShipsClient.Protocol
 
         private static void HandleAuthResponse(Packet packet)
         {
-            AuthResponse responseCode = (AuthResponse) packet.ReadUInt8();
+            var responseCode = (AuthResponse) packet.ReadUInt8();
             switch (responseCode)
             {
                 case AuthResponse.AUTH_RESPONSE_UNKNOWN_USER:
@@ -159,7 +163,7 @@ namespace ShipsClient.Protocol
 
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                Random rnd = new Random();
+                var rnd = new Random();
                 MainWindow.MainWindow.Form.JoinBattle(battles[rnd.Next(count)]);
             }));
         }
@@ -170,7 +174,7 @@ namespace ShipsClient.Protocol
             var responseCode = (BattleResponse) packet.ReadUInt8();
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                PreBattleWindow.PreBattleWindow.Form.InitialBattleWindow(battleId, responseCode, "",
+                PreBattleWindow.Form.InitialBattleWindow(battleId, responseCode, "",
                     "Ожидайте противника");
             }));
         }
@@ -206,7 +210,7 @@ namespace ShipsClient.Protocol
                     var opUsername = packet.ReadUTF8String();
                     Application.Current.Dispatcher.Invoke(new Action(() =>
                     {
-                        PreBattleWindow.PreBattleWindow.Form.InitialBattleWindow(battleId, responseCode, myUsername,
+                        PreBattleWindow.Form.InitialBattleWindow(battleId, responseCode, myUsername,
                             opUsername);
                     }));
                     break;
@@ -272,6 +276,17 @@ namespace ShipsClient.Protocol
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 BattleWindow.BattleWindow.Form.UpdateBoard(x, y, result);
+            }));
+        }
+
+        private static void HandleGetStatisticsResponse(Packet packet)
+        {
+            var lastBattle = packet.ReadUInt32();
+            var wins = packet.ReadUInt16();
+            var loose = packet.ReadUInt16();
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                StatisticsWindow.Form.RecivieStatistics(lastBattle, wins, loose);
             }));
         }
     }

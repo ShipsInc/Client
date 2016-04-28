@@ -29,6 +29,11 @@
                     <ImageBrush ImageSource="../Resources/Profile/profile-mainmenu-right.png"/>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Button.Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" Direction="250" ShadowDepth="2" BlurRadius="5" Opacity="0.5" />
+                </Setter.Value>
+            </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -68,6 +73,6 @@
         </DockPanel>
         <Button x:Name="_btCreateGame" Style="{StaticResource ButtonTemplateStyle}" Content="Создать игру" HorizontalAlignment="Left" VerticalAlignment="Top" Width="246" Margin="207,115,0,0" Grid.Row="1" Height="58" Click="_btCreateGame_Click"/>
         <Button x:Name="_btJoinGame" Style="{StaticResource ButtonTemplateStyle}" Content="Присоединиться" HorizontalAlignment="Left" VerticalAlignment="Top" Width="246" Margin="207,198,0,0" Grid.Row="1" Height="60" Click="_btJoinGame_Click"/>
-        <Button x:Name="_btProfile" Style="{StaticResource ButtonProfileStyle}" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Margin="520,10,0,0" Grid.Row="1" Height="46" RenderTransformOrigin="0.581,0.443"/>
+        <Button x:Name="_btProfile" Style="{StaticResource ButtonProfileStyle}" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Margin="520,10,0,0" Grid.Row="1" Height="46" RenderTransformOrigin="0.581,0.443" Click="_btProfile_Click"/>
     </Grid>
 </Window>

@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\Common\Time.cs" />
+    <Compile Include="StatisticsWindow.xaml.cs">
+      <DependentUpon>StatisticsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Auth\AuthWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -84,7 +88,7 @@
     <Compile Include="NotificationWindow\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PreBattleWindow\PreBattleWindow.xaml.cs">
+    <Compile Include="BattleWindow\PreBattleWindow.xaml.cs">
       <DependentUpon>PreBattleWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow\MainWindow.xaml.cs">
@@ -123,11 +127,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PreBattleWindow\PreBattleWindow.xaml">
+    <Page Include="BattleWindow\PreBattleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StatisticsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,18 +179,6 @@
     <Resource Include="Resources\Buttons\minimize.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Buttons\play.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Buttons\play_hover.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Buttons\join.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Buttons\join_hover.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Buttons\area.png" />
   </ItemGroup>
   <ItemGroup>
@@ -192,19 +188,7 @@
     <Resource Include="Resources\Buttons\Button2-Hover.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\background-battle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\background-prebattle.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\battlearea.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Buttons\random_hover.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Buttons\random.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Profile\profile-mainmenu-right.png" />
@@ -274,6 +258,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\os_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\background_stat.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

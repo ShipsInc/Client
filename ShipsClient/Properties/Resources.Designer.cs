@@ -103,19 +103,9 @@ namespace ShipsClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap background_battle {
+        internal static System.Drawing.Bitmap background_stat {
             get {
-                object obj = ResourceManager.GetObject("background_battle", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap background_prebattle {
-            get {
-                object obj = ResourceManager.GetObject("background_prebattle", resourceCulture);
+                object obj = ResourceManager.GetObject("background_stat", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,26 +153,6 @@ namespace ShipsClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap join {
-            get {
-                object obj = ResourceManager.GetObject("join", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap join_hover {
-            get {
-                object obj = ResourceManager.GetObject("join_hover", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap minimize {
             get {
                 object obj = ResourceManager.GetObject("minimize", resourceCulture);
@@ -223,26 +193,6 @@ namespace ShipsClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap play {
-            get {
-                object obj = ResourceManager.GetObject("play", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap play_hover {
-            get {
-                object obj = ResourceManager.GetObject("play_hover", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap profile_mainmenu_right {
             get {
                 object obj = ResourceManager.GetObject("profile_mainmenu_right", resourceCulture);
@@ -256,26 +206,6 @@ namespace ShipsClient.Properties {
         internal static System.Drawing.Bitmap profile_mainmenu_right_hover {
             get {
                 object obj = ResourceManager.GetObject("profile_mainmenu_right_hover", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap random {
-            get {
-                object obj = ResourceManager.GetObject("random", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap random_hover {
-            get {
-                object obj = ResourceManager.GetObject("random_hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

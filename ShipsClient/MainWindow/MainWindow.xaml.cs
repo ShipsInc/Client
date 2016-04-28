@@ -2,8 +2,8 @@
 using System.Timers;
 using System.Windows;
 using System.Windows.Input;
+using ShipsClient.BattleWindow;
 using ShipsClient.Common;
-using ShipsClient.PreBattleWindow;
 using ShipsClient.Network;
 
 namespace ShipsClient.MainWindow
@@ -76,7 +76,7 @@ namespace ShipsClient.MainWindow
 
         private void _btCreateGame_Click(object sender, RoutedEventArgs e)
         {
-            var window = new PreBattleWindow.PreBattleWindow { Owner = this };
+            var window = new PreBattleWindow { Owner = this };
             window.Show();
 
             this.Visibility = Visibility.Hidden;
@@ -84,7 +84,7 @@ namespace ShipsClient.MainWindow
 
         private void _btJoinGame_Click(object sender, RoutedEventArgs e)
         {
-            Packet packet = new Packet((int)Opcodes.CMSG_GET_GAMES);
+            var packet = new Packet((int)Opcodes.CMSG_GET_GAMES);
             ClientSocket.Instance.SendPacket(packet);
         }
 
@@ -99,10 +99,16 @@ namespace ShipsClient.MainWindow
 
         public void JoinBattle(int battleId)
         {
-            var window = new PreBattleWindow.PreBattleWindow(battleId) { Owner = this };
+            var window = new PreBattleWindow(battleId) { Owner = this };
             window.Show();
 
             this.Visibility = Visibility.Hidden;
+        }
+
+        private void _btProfile_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new StatisticsWindow() {Owner = this.Owner};
+            window.ShowDialog();
         }
     }
 }

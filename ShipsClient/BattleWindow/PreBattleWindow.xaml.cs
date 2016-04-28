@@ -6,7 +6,7 @@ using ShipsClient.Enums;
 using ShipsClient.Game;
 using ShipsClient.Network;
 
-namespace ShipsClient.PreBattleWindow
+namespace ShipsClient.BattleWindow
 {
     /// <summary>
     /// Логика взаимодействия для PreBattleWindow.xaml
@@ -86,7 +86,7 @@ namespace ShipsClient.PreBattleWindow
 
         public void InitialBattleWindow(int battleId, BattleResponse response, string myBoard = "", string oponentBoard = "")
         {
-            var window = new BattleWindow.BattleWindow() { Owner = this.Owner, MyBoard = this.Board, BattleId = battleId, MyTextBlock = myBoard, OponentTextBlock = oponentBoard };
+            var window = new ShipsClient.BattleWindow.BattleWindow() { Owner = this.Owner, MyBoard = this.Board, BattleId = battleId, MyTextBlock = myBoard, OponentTextBlock = oponentBoard };
             window.Show();
 
             if (response == BattleResponse.BATTLE_RESPONSE_JOIN_SUCCESS)
