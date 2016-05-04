@@ -87,7 +87,7 @@ namespace ShipsClient.Auth
             Packet packet = new Packet((int)Opcodes.CMSG_REGISTRATION);
             packet.WriteUTF8String(_tbUsername.Text);
             packet.WriteUTF8String(_tbPassword.Password);
-            ClientSocket.Instance.SendPacket(packet);
+            TCPSocket.Instance.SendPacket(packet);
         }
     }
 }

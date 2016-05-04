@@ -16,7 +16,7 @@ namespace ShipsClient
             InitializeComponent();
             Form = this;
 
-            ClientSocket.Instance.SendPacket(new Packet((int)Opcodes.CMSG_GET_STATISTICS));
+            TCPSocket.Instance.SendPacket(new Packet((int)Opcodes.CMSG_GET_STATISTICS));
         }
 
         public void RecivieStatistics(uint lastGame, uint wins, uint loose)

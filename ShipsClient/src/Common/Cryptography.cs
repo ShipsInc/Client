@@ -1,51 +1,49 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Security.Cryptography;
 
 namespace ShipsClient.Common
 {
     public class Cryptography
     {
-        public static byte[] Encrypt(byte[] input)
+        public static byte[] Encrypt(byte[] data)
         {
-            var ms = new MemoryStream();
-            var pdb = new PasswordDeriveBytes(Constants.CRYPTOGRAPHY_PASSWORD, Constants.CRYPTOGRAPHY_BYTES);
-            var aes = new AesManaged();
-            aes.Key = pdb.GetBytes(aes.KeySize / 8);
-            aes.IV = pdb.GetBytes(aes.BlockSize / 8);
-            var cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write);
-            cs.Write(input, 0, input.Length);
-            try
+            byte[] encryptBytes;
+            using (Aes encryptor = Aes.Create())
             {
-                cs.Close();
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(Constants.CRYPTOGRAPHY_PASSWORD, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(data, 0, data.Length);
+                        cs.Close();
+                    }
+                    encryptBytes = ms.ToArray();
+                }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-                Console.WriteLine(e.Message);
-            }
-            return ms.ToArray();
+            return encryptBytes;
         }
-
-        public static byte[] Decrypt(byte[] input)
+        public static byte[] Decrypt(byte[] data)
         {
-            var ms = new MemoryStream();
-            var pdb = new PasswordDeriveBytes(Constants.CRYPTOGRAPHY_PASSWORD, Constants.CRYPTOGRAPHY_BYTES);
-            Aes aes = new AesManaged();
-            aes.Key = pdb.GetBytes(aes.KeySize / 8);
-            aes.IV = pdb.GetBytes(aes.BlockSize / 8);
-            var cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write);
-            cs.Write(input, 0, input.Length);
-            try
+            byte[] decryptBytes;
+            using (Aes encryptor = Aes.Create())
             {
-                cs.Close();
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(Constants.CRYPTOGRAPHY_PASSWORD, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(data, 0, data.Length);
+                        cs.Close();
+                    }
+                    decryptBytes = ms.ToArray();
+                }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-                Console.WriteLine(e.Message);
-            }
-            return ms.ToArray();
+            return decryptBytes;
         }
     }
 }

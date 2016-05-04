@@ -74,7 +74,7 @@ namespace ShipsClient.BattleWindow
 
             Board.WritePacket(packet);
 
-            ClientSocket.Instance.SendPacket(packet);
+            TCPSocket.Instance.SendPacket(packet);
 
             this.Visibility = Visibility.Hidden;
         }

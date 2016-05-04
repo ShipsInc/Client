@@ -141,7 +141,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\Network\ClientSocket.cs" />
+    <Compile Include="src\Network\TCPSocket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -263,10 +263,10 @@
     <Resource Include="Resources\background_stat.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\symbols.png" />
+    <Resource Include="Resources\background_prebattle.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\background_prebattle.png" />
+    <Resource Include="Resources\background_battle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

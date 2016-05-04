@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ShipsClient.Auth"
         mc:Ignorable="d"
         Title="Авторизация" Height="322" Width="540.5" WindowStyle="None" Background="Transparent" AllowsTransparency="True" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closing="Window_Closing" Loaded="Window_Loaded">
     <Window.Triggers>
@@ -32,10 +31,19 @@
             <Button x:Name="_btClose" Template="{StaticResource ButtonTemplateWinClose}" Click="_btClose_Click" d:LayoutOverrides="Height, TopPosition, BottomPosition" Margin="0" DockPanel.Dock="Right"/>
             <Button x:Name="_btMinimize" Template="{StaticResource ButtonTemplateWinMin}" Click="_btMinimize_Click" d:LayoutOverrides="Height, TopPosition, BottomPosition" Margin="0,0,10,0" HorizontalAlignment="Right"/>
         </DockPanel>
-        <TextBox x:Name="_tbUsername" Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" Margin="180,28,0,0" Grid.Row="1" Text="Имя пользователя" VerticalAlignment="Top" Width="200" Height="36"/>
-        <PasswordBox x:Name="_tbPassword" Style="{StaticResource PasswordBoxStyle}" HorizontalAlignment="Left" Margin="180,70,0,0" Grid.Row="1" VerticalAlignment="Top" Password="******" Width="200" Height="34"/>
-        <Button x:Name="_btPlay" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="226,120,0,0" Grid.Row="1" VerticalAlignment="Top" Width="115" RenderTransformOrigin="0.353,1.425" ToolTip="Войти" Click="_btAuth_Click" Height="48" Content="Войти"/>
+        <TextBox x:Name="_tbUsername" Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" Margin="179,30,0,0" Grid.Row="1" Text="Логин" VerticalAlignment="Top" Width="234" Height="57" FontSize="30"/>
+        <PasswordBox x:Name="_tbPassword" Style="{StaticResource PasswordBoxStyle}" HorizontalAlignment="Left" Margin="179,106,0,0" Grid.Row="1" VerticalAlignment="Top" Password="******" Width="234" Height="57" FontSize="30"/>
+        <Button x:Name="_btPlay" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="233,184,0,0" Grid.Row="1" VerticalAlignment="Top" Width="126" RenderTransformOrigin="0.353,1.425" ToolTip="Войти" Click="_btAuth_Click" Height="48" Content="Войти" FontSize="30"/>
         <TextBlock x:Name="_tbErrors" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="32,5,0,0" Grid.Row="1" Height="25" Width="401" Foreground="#FFFF0E0E" FontWeight="Bold" FontFamily="Malgun Gothic"/>
-        <Button x:Name="_btJoin" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="183,184,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" RenderTransformOrigin="0.353,1.425" ToolTip="Регистрация" Click="_btJoin_Click" Height="50" Content="Регистрация"/>
+        <Button x:Name="_btJoin" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="-19,73,0,0" Grid.Row="1" VerticalAlignment="Top" Width="226" RenderTransformOrigin="0.353,1.425" ToolTip="Регистрация" Click="_btJoin_Click" Height="50" Content="Регистрация" FontSize="30">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="47.775"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
     </Grid>
 </Window>

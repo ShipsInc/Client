@@ -80,13 +80,13 @@ namespace ShipsClient.Auth
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Task.Factory.StartNew(() => { ClientSocket.Instance.Connect("127.0.0.1", 8085); });
+            Task.Factory.StartNew(() => { TCPSocket.Instance.Connect("127.0.0.1", 8085); });
         }
 
         private void _btClose_Click(object sender, RoutedEventArgs e)
         {
-            if (ClientSocket.Instance.IsOpen())
-                ClientSocket.Instance.SendPacket(new Packet((int)Opcodes.CMSG_DISCONNECTED));
+            if (TCPSocket.Instance.IsOpen())
+                TCPSocket.Instance.SendPacket(new Packet((int)Opcodes.CMSG_DISCONNECTED));
 
             Close();
         }
@@ -113,7 +113,7 @@ namespace ShipsClient.Auth
             var packet = new Packet((int)Opcodes.CMSG_AUTH);
             packet.WriteUTF8String(_tbUsername.Text);
             packet.WriteUTF8String(_tbPassword.Password);
-            ClientSocket.Instance.SendPacket(packet);
+            TCPSocket.Instance.SendPacket(packet);
         }
 
         private void _btJoin_Click(object sender, RoutedEventArgs e)

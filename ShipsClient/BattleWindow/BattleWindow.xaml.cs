@@ -98,11 +98,11 @@ namespace ShipsClient.BattleWindow
             if (window.ShowDialog() == false)
                 return;
 
-            if (MyBoard.Status == BoardStatus.BOARD_STATUS_BATTLE)
+            if (MyBoard.Status == BoardStatus.BOARD_STATUS_BATTLE || MyBoard.Status == BoardStatus.BOARD_STATUS_WAIT_OPONENT)
             {
                 var packet = new Packet((int)Opcodes.CMSG_BATTLE_LEAVE);
                 packet.WriteInt32(BattleId);
-                ClientSocket.Instance.SendPacket(packet);
+                TCPSocket.Instance.SendPacket(packet);
             }
 
             Close();
@@ -143,7 +143,7 @@ namespace ShipsClient.BattleWindow
             packet.WriteInt32(BattleId);
             packet.WriteUInt8((byte)e.X);
             packet.WriteUInt8((byte)e.Y);
-            ClientSocket.Instance.SendPacket(packet, true);
+            TCPSocket.Instance.SendPacket(packet, true);
         }
 
         public void ShotResult(int x, int y, ShotResult result)

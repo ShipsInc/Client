@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Timers;
 using ShipsClient.Protocol;
 
 namespace ShipsClient.Network
 {
-    public class ClientSocket
+    public class TCPSocket
     {
         // ManualResetEvent instances signal completion.
         private readonly ManualResetEvent connectDone = new ManualResetEvent(false);
@@ -23,12 +24,12 @@ namespace ShipsClient.Network
         private string IP { get; set; }
         private int Port { get; set; }
 
-        private static ClientSocket _instance;
+        private static TCPSocket _instance;
 
         private readonly System.Timers.Timer PacketTimer;
         private readonly Queue<Packet> SendPacketQueue;
 
-        private ClientSocket()
+        private TCPSocket()
         {
             ReadBuffer = new byte[Constants.BUFFER_SIZE];
 
@@ -40,12 +41,12 @@ namespace ShipsClient.Network
             Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 
-        public static ClientSocket Instance
+        public static TCPSocket Instance
         {
             get
             {
                 if (_instance == null)
-                    _instance = new ClientSocket();
+                    _instance = new TCPSocket();
                 return _instance;
             }
         }
@@ -130,8 +131,12 @@ namespace ShipsClient.Network
         {
             try
             {
-                byte[] decryptBytes = Cryptography.Decrypt(ReadBuffer);
-                Packet packet = ParsePacket(decryptBytes);
+                int bytes = Socket.EndReceive(ar);
+                byte[] temp = ReadBuffer;
+                Array.Resize(ref temp, bytes);
+                byte[] decryptBytes = Cryptography.Decrypt(temp);
+
+                var packet = ParsePacket(decryptBytes);
                 if (packet != null)
                     Handlers.SelectHandler(packet);
 
@@ -192,10 +197,10 @@ namespace ShipsClient.Network
                 SendPacketQueue.Enqueue(packet);
             else
             {
-                WriteHeader(packet);
-                byte[] cryptBytes = Cryptography.Encrypt(packet.ToArray());
                 try
                 {
+                    WriteHeader(packet);
+                    byte[] cryptBytes = Cryptography.Encrypt(packet.ToArray());
                     Socket.BeginSend(cryptBytes, 0, cryptBytes.Length, 0, new AsyncCallback(SendPacketCallback), null);
                 }
                 catch (Exception)
