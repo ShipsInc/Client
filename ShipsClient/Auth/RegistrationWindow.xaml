@@ -3,14 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ShipsClient.Auth"
         mc:Ignorable="d"
-        Title="Регистрация" Height="284" Width="462" WindowStyle="None" Background="Transparent" AllowsTransparency="True" WindowStartupLocation="CenterOwner" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        Title="Регистрация" Height="284" Width="490" WindowStyle="None" Background="Transparent" AllowsTransparency="True" WindowStartupLocation="CenterOwner" MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
             <BeginStoryboard>
                 <Storyboard>
-                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="0.95" Duration="0:0:0.5"  FillBehavior="HoldEnd" AutoReverse="False"/>
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"  FillBehavior="HoldEnd" AutoReverse="False"/>
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
@@ -33,9 +32,9 @@
             <Button x:Name="_btMinimize" Template="{StaticResource ButtonTemplateWinMin}" Click="_btMinimize_Click" d:LayoutOverrides="Height, TopPosition, BottomPosition" Margin="0,0,10,0" HorizontalAlignment="Right"/>
         </DockPanel>
         <TextBlock x:Name="_tbErrors" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="32,42,0,0" Height="32" Width="401" Foreground="#FFFF0E0E" FontWeight="Bold" FontFamily="Malgun Gothic" Grid.RowSpan="2"/>
-        <TextBox x:Name="_tbUsername" Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" Margin="142,31,0,0" Grid.Row="1" Text="Имя пользователя" VerticalAlignment="Top" Width="200"/>
-        <PasswordBox x:Name="_tbPassword" Style="{StaticResource PasswordBoxStyle}" HorizontalAlignment="Left" Password="******" Margin="142,74,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200"/>
-        <PasswordBox x:Name="_tbPassword2" Style="{StaticResource PasswordBoxStyle}" HorizontalAlignment="Left" Password="******" Margin="142,117,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200"/>
-        <Button x:Name="_btPlay" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="138,167,0,0" Grid.Row="1" VerticalAlignment="Top" Width="211" RenderTransformOrigin="0.353,1.425" ToolTip="Войти" Click="_btPlay_Click" Content="Регистрация" Height="47"/>
+        <TextBox x:Name="_tbUsername" Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" Margin="139,23,0,0" Grid.Row="1" Text="Имя пользователя" VerticalAlignment="Top" Width="200"/>
+        <PasswordBox x:Name="_tbPassword" Style="{StaticResource PasswordBoxStyle}" HorizontalAlignment="Left" Password="******" Margin="139,66,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200"/>
+        <PasswordBox x:Name="_tbPassword2" Style="{StaticResource PasswordBoxStyle}" HorizontalAlignment="Left" Password="******" Margin="139,109,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200"/>
+        <Button x:Name="_btPlay" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="135,159,0,0" Grid.Row="1" VerticalAlignment="Top" Width="211" RenderTransformOrigin="0.353,1.425" ToolTip="Войти" Click="_btPlay_Click" Content="Регистрация" Height="47"/>
     </Grid>
 </Window>

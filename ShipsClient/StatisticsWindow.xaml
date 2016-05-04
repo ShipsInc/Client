@@ -10,7 +10,7 @@
         <EventTrigger RoutedEvent="Window.Loaded">
             <BeginStoryboard>
                 <Storyboard>
-                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="0.95" Duration="0:0:0.5"  FillBehavior="HoldEnd" AutoReverse="False"/>
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"  FillBehavior="HoldEnd" AutoReverse="False"/>
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <Rectangle RadiusX="20" RadiusY="20" Width="Auto" Height="Auto" Grid.RowSpan="2" Margin="0">
             <Rectangle.Effect>
-                <DropShadowEffect Opacity="0.1" RenderingBias="Quality"/>
+                <DropShadowEffect Opacity="0.4" RenderingBias="Quality"/>
             </Rectangle.Effect>
             <Rectangle.Fill>
                 <ImageBrush ImageSource="Resources/background_stat.png"/>

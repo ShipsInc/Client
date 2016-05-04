@@ -10,7 +10,7 @@
         <EventTrigger RoutedEvent="Window.Loaded">
             <BeginStoryboard>
                 <Storyboard>
-                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="0.95" Duration="0:0:0.5"  FillBehavior="HoldEnd" AutoReverse="False"/>
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"  FillBehavior="HoldEnd" AutoReverse="False"/>
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
@@ -67,7 +67,7 @@
                 <ImageBrush ImageSource="/ShipsClient;component/Resources/os_background.png"/>
             </Rectangle.Fill>
         </Rectangle>
-        <DockPanel Margin="15,15,22,0">
+        <DockPanel Margin="30,15,30,0">
             <Button x:Name="_btClose" Template="{StaticResource ButtonTemplateWinClose}" Click="_btClose_Click" d:LayoutOverrides="Height, TopPosition, BottomPosition" Margin="0" DockPanel.Dock="Right"/>
             <Button x:Name="_btMinimize" Template="{StaticResource ButtonTemplateWinMin}" Click="_btMinimize_Click" d:LayoutOverrides="Height, TopPosition, BottomPosition" Margin="0,0,10,0" HorizontalAlignment="Right"/>
         </DockPanel>

@@ -28,6 +28,7 @@
         SMSG_BATTLE_OPONENT_SHOT_RESULT     = 0x018,
         CMSG_GET_STATISTICS                 = 0x019,
         SMSG_GET_STATISTICS_RESPONSE        = 0x01A,
+        CMSG_DISCONNECTED                   = 0x01B,
         MAX_OPCODE,
     }
 }

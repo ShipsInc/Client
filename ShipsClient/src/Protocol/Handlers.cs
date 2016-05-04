@@ -157,7 +157,7 @@ namespace ShipsClient.Protocol
                 return;
             }
 
-            int[] battles = new int[count];
+            var battles = new int[count];
             for (int i = 0; i < count; ++i)
                 battles[i] = packet.ReadInt32();
 

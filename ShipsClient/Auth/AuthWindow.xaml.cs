@@ -85,6 +85,9 @@ namespace ShipsClient.Auth
 
         private void _btClose_Click(object sender, RoutedEventArgs e)
         {
+            if (ClientSocket.Instance.IsOpen())
+                ClientSocket.Instance.SendPacket(new Packet((int)Opcodes.CMSG_DISCONNECTED));
+
             Close();
         }
 
