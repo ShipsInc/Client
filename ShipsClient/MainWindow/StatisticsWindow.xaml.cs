@@ -3,7 +3,7 @@ using System.Windows;
 using ShipsClient.Common;
 using ShipsClient.Network;
 
-namespace ShipsClient
+namespace ShipsClient.MainWindow
 {
     /// <summary>
     /// Логика взаимодействия для StatisticsWindow.xaml

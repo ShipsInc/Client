@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -186,6 +187,31 @@ namespace ShipsClient.BattleWindow
             }
 
             MyBoard.UpdateCellState(x, y, result);
+        }
+
+        private void _btChatMessage_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_tbChatMessage.Text))
+                return;
+
+            if (MyBoard.Status != BoardStatus.BOARD_STATUS_BATTLE)
+                return;
+
+            _rchChat.AppendText($"Вы: {_tbChatMessage.Text}\r");
+            _rchChat.ScrollToEnd();
+
+            var packet = new Packet((int)Opcodes.CMSG_CHAT_SEND_MESSAGE);
+            packet.WriteInt32(BattleId);
+            packet.WriteUTF8String(_tbChatMessage.Text);
+            TCPSocket.Instance.SendPacket(packet);
+
+            _tbChatMessage.Text = string.Empty;
+        }
+
+        public void RecivieMessage(string username, string text)
+        {
+            _rchChat.AppendText($"{username}: {text}\r");
+            _rchChat.ScrollToEnd();
         }
     }
 }

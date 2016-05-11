@@ -2,14 +2,14 @@
 {
     public enum Opcodes : uint
     {
-        CMSG_AUTH                           = 0x001,
+        CMSG_AUTH                           = 0x001, // Auth
         CMSG_REGISTRATION                   = 0x002,
         SMSG_AUTH_RESPONSE                  = 0x003,
         SMSG_REGISTRATION_RESPONSE          = 0x004,
         CMSG_LOGOUT                         = 0x005,
         CMSG_KEEP_ALIVE                     = 0x006,
         SMSG_KEEP_ALIVE                     = 0x007,
-        CMSG_PROFILE                        = 0x008,
+        CMSG_PROFILE                        = 0x008, // Profile
         SMSG_PROFILE_RESPONSE               = 0x009,
         CMSG_GET_GAMES                      = 0x00A,
         SMSG_GET_GAMES_RESPONSE             = 0x00B,
@@ -29,6 +29,8 @@
         CMSG_GET_STATISTICS                 = 0x019,
         SMSG_GET_STATISTICS_RESPONSE        = 0x01A,
         CMSG_DISCONNECTED                   = 0x01B,
+        CMSG_CHAT_SEND_MESSAGE              = 0x01C, // Chat
+        SMSG_CHAT_MESSAGE                   = 0x01D,
         MAX_OPCODE,
     }
 }

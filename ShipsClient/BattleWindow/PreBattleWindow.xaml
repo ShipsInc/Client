@@ -42,6 +42,7 @@
         </Grid>
         <Button x:Name="_btBattle" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="344,208,0,0" Grid.Row="1" VerticalAlignment="Top" Width="143" RenderTransformOrigin="0.353,1.425" ToolTip="В бой!" Click="_btBattle_Click" Content="В БОЙ!" Height="58"/>
         <Button x:Name="_btRandom" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="344,130,0,0" Grid.Row="1" VerticalAlignment="Top" Width="143" RenderTransformOrigin="0.353,1.425" ToolTip="В бой!" Click="_btRandom_Click" Content="Случайно" Height="58"/>
-        <TextBlock x:Name="textBlock" Foreground="#4114cb" HorizontalAlignment="Center" Margin="36,12,564,39" Grid.Row="1" TextWrapping="Wrap" Text="А Б В Г Д Е И Ж З К" VerticalAlignment="Center" RenderTransformOrigin="-0.571,-0.062" Width="28" Height="253" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="22"/>
+        <TextBlock x:Name="textBlock" Foreground="#4114cb" HorizontalAlignment="Center" Margin="36,12,564,39" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" RenderTransformOrigin="-0.571,-0.062" Width="28" Height="253" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="22" TextAlignment="Center"><Run Text="А Б В Г Д Е И Ж З К"/></TextBlock>
+        <TextBlock x:Name="textBlock2" Foreground="#4114cb" Margin="65,45,313,290" TextWrapping="Wrap" RenderTransformOrigin="0,0" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="23" TextAlignment="Left" Grid.RowSpan="2"/>
     </Grid>
 </Window>

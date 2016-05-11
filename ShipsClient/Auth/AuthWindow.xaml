@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Авторизация" Height="322" Width="540.5" WindowStyle="None" Background="Transparent" AllowsTransparency="True" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closing="Window_Closing" Loaded="Window_Loaded">
+        Title="Авторизация" Height="344" Width="580.5" WindowStyle="None" Background="Transparent" AllowsTransparency="True" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closing="Window_Closing" Loaded="Window_Loaded">
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
             <BeginStoryboard>
@@ -27,23 +27,14 @@
                 <ImageBrush ImageSource="/ShipsClient;component/Resources/background.png"/>
             </Rectangle.Fill>
         </Rectangle>
-        <DockPanel Margin="10,15,20,0">
+        <DockPanel Margin="10,15,25,0">
             <Button x:Name="_btClose" Template="{StaticResource ButtonTemplateWinClose}" Click="_btClose_Click" d:LayoutOverrides="Height, TopPosition, BottomPosition" Margin="0" DockPanel.Dock="Right"/>
             <Button x:Name="_btMinimize" Template="{StaticResource ButtonTemplateWinMin}" Click="_btMinimize_Click" d:LayoutOverrides="Height, TopPosition, BottomPosition" Margin="0,0,10,0" HorizontalAlignment="Right"/>
         </DockPanel>
-        <TextBox x:Name="_tbUsername" Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" Margin="179,30,0,0" Grid.Row="1" Text="Логин" VerticalAlignment="Top" Width="234" Height="57" FontSize="30"/>
-        <PasswordBox x:Name="_tbPassword" Style="{StaticResource PasswordBoxStyle}" HorizontalAlignment="Left" Margin="179,106,0,0" Grid.Row="1" VerticalAlignment="Top" Password="******" Width="234" Height="57" FontSize="30"/>
-        <Button x:Name="_btPlay" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="233,184,0,0" Grid.Row="1" VerticalAlignment="Top" Width="126" RenderTransformOrigin="0.353,1.425" ToolTip="Войти" Click="_btAuth_Click" Height="48" Content="Войти" FontSize="30"/>
-        <TextBlock x:Name="_tbErrors" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="32,5,0,0" Grid.Row="1" Height="25" Width="401" Foreground="#FFFF0E0E" FontWeight="Bold" FontFamily="Malgun Gothic"/>
-        <Button x:Name="_btJoin" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="-19,73,0,0" Grid.Row="1" VerticalAlignment="Top" Width="226" RenderTransformOrigin="0.353,1.425" ToolTip="Регистрация" Click="_btJoin_Click" Height="50" Content="Регистрация" FontSize="30">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="47.775"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
+        <TextBox x:Name="_tbUsername" Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" Margin="180,18,0,0" Grid.Row="1" Text="Логин" VerticalAlignment="Top" Width="234" Height="57" FontSize="30" GotFocus="_tbUsername_GotFocus" LostFocus="_tbUsername_LostFocus"/>
+        <PasswordBox x:Name="_tbPassword" Style="{StaticResource PasswordBoxStyle}" HorizontalAlignment="Left" Margin="180,86,0,0" Grid.Row="1" VerticalAlignment="Top" Password="******" Width="234" Height="57" FontSize="30" LostFocus="_tbPassword_LostFocus" GotFocus="_tbPassword_GotFocus"/>
+        <Button x:Name="_btPlay" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="238,150,0,0" Grid.Row="1" VerticalAlignment="Top" Width="126" RenderTransformOrigin="0.353,1.425" ToolTip="Войти" Click="_btAuth_Click" Height="48" Content="Войти" FontSize="30"/>
+        <TextBlock x:Name="_tbErrors" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="39,33,0,0" Grid.Row="1" Height="144" Width="123" Foreground="#FFFF0E0E" FontWeight="Bold" FontFamily="Malgun Gothic"/>
+        <Button x:Name="_btReg" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="185,207,0,0" Grid.Row="1" VerticalAlignment="Top" Width="226" RenderTransformOrigin="0.353,1.425" ToolTip="Регистрация" Click="_btJoin_Click" Height="57" Content="Регистрация" FontSize="30"/>
     </Grid>
 </Window>

@@ -1,11 +1,8 @@
 ﻿using ShipsClient.Common;
 using ShipsClient.Network;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 using ShipsClient.Messages;
@@ -138,6 +135,30 @@ namespace ShipsClient.Auth
             {
                 _tbPassword.Password = "";
             }));
+        }
+
+        private void _tbUsername_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (_tbUsername.Text.Equals("Логин", StringComparison.OrdinalIgnoreCase))
+                _tbUsername.Text = string.Empty;
+        }
+
+        private void _tbUsername_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_tbUsername.Text))
+                _tbUsername.Text = "Логин";
+        }
+
+        private void _tbPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (_tbPassword.Password.Equals("******", StringComparison.OrdinalIgnoreCase))
+                _tbPassword.Password = string.Empty;
+        }
+
+        private void _tbPassword_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_tbPassword.Password))
+                _tbPassword.Password = "******";
         }
     }
 }

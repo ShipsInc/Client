@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ShipsClient.MainWindow"
         mc:Ignorable="d"
         Title="Главное окно" Height="373" Width="651" WindowStyle="None" Background="Transparent" AllowsTransparency="True" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closing="Window_Closing" Loaded="Window_Loaded">
     <Window.Triggers>

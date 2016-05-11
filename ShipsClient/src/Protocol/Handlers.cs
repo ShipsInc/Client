@@ -57,6 +57,9 @@ namespace ShipsClient.Protocol
                 case Opcodes.SMSG_GET_STATISTICS_RESPONSE:
                     HandleGetStatisticsResponse(packet);
                     break;
+                case Opcodes.SMSG_CHAT_MESSAGE:
+                    HandleChatMessage(packet);
+                    break;
                 case Opcodes.SMSG_KEEP_ALIVE:
                     break;
                 default:
@@ -174,8 +177,7 @@ namespace ShipsClient.Protocol
             var responseCode = (BattleResponse) packet.ReadUInt8();
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                PreBattleWindow.Form.InitialBattleWindow(battleId, responseCode, "",
-                    "Ожидайте противника");
+                PreBattleWindow.Form.InitialBattleWindow(battleId, responseCode, "", "Ожидайте противника");
             }));
         }
 
@@ -286,7 +288,18 @@ namespace ShipsClient.Protocol
             var loose = packet.ReadUInt16();
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                StatisticsWindow.Form.RecivieStatistics(lastBattle, wins, loose);
+                MainWindow.StatisticsWindow.Form.RecivieStatistics(lastBattle, wins, loose);
+            }));
+        }
+
+        private static void HandleChatMessage(Packet packet)
+        {
+            var username = packet.ReadUTF8String();
+            var text = packet.ReadUTF8String();
+
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                BattleWindow.BattleWindow.Form.RecivieMessage(username, text);
             }));
         }
     }

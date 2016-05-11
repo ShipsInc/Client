@@ -49,8 +49,6 @@ namespace ShipsClient.Game
             switch (_state)
             {
                 case BoardCellState.BOARD_CELL_STATE_NORMAL:
-                    BorderThickness = new Thickness(0.0f);
-                    BorderBrush = new SolidColorBrush(Colors.Transparent);
                     Background = new SolidColorBrush(Colors.Transparent);
                     Content = string.Empty;
                     break;
@@ -58,12 +56,11 @@ namespace ShipsClient.Game
                     Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Resources/Battle/missed_cell.png")));
                     break;
                 case BoardCellState.BOARD_CELL_STATE_SHIP:
-                    BorderThickness = new Thickness(0.0f);
-                    BorderBrush = new SolidColorBrush(Colors.Transparent);
                     Width = Constants.CELL_SIZE;
                     Height = Constants.CELL_SIZE;
                     Padding = new Thickness();
                     Content = string.Empty;
+                    Background = new SolidColorBrush(Colors.Transparent);
 
                     ship = _board.GetShipAt(X, Y);
                     if (ship != null && ship.X == X && ship.Y == Y)
@@ -87,12 +84,16 @@ namespace ShipsClient.Game
                     Content = ShipHitChar.ToString();
                     break;
                 case BoardCellState.BOARD_CELL_STATE_SHIP_DRAG:
-                    BorderThickness = new Thickness(1);
-                    BorderBrush = new SolidColorBrush(Colors.Green);
+                    ship = _board.GetShipAt(X, Y);
+                    if (ship != null && ship.X == X && ship.Y == Y)
+                        break;
+                    Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Resources/cell_valid.png")));
                     break;
                 case BoardCellState.BOARD_CELL_STATE_SHIP_DRAG_INVALID:
-                    BorderThickness = new Thickness(1);
-                    BorderBrush = new SolidColorBrush(Colors.Red);
+                    ship = _board.GetShipAt(X, Y);
+                    if (ship != null && ship.X == X && ship.Y == Y)
+                        break;
+                    Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Resources/cell_invalid.png")));
                     break;
                 case BoardCellState.BOARD_CELL_STATE_SHOW_DROWNED:
                 {

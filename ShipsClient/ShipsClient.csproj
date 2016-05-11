@@ -57,7 +57,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="src\Common\Time.cs" />
-    <Compile Include="StatisticsWindow.xaml.cs">
+    <Compile Include="MainWindow\StatisticsWindow.xaml.cs">
       <DependentUpon>StatisticsWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Auth\AuthWindow.xaml">
@@ -135,7 +135,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StatisticsWindow.xaml">
+    <Page Include="MainWindow\StatisticsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -267,6 +267,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\background_battle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cell_valid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cell_invalid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\chat_border_input.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

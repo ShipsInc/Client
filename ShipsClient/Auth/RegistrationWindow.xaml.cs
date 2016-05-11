@@ -89,5 +89,41 @@ namespace ShipsClient.Auth
             packet.WriteUTF8String(_tbPassword.Password);
             TCPSocket.Instance.SendPacket(packet);
         }
+
+        private void _tbUsername_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (_tbUsername.Text.Equals("Логин", StringComparison.OrdinalIgnoreCase))
+                _tbUsername.Text = string.Empty;
+        }
+
+        private void _tbUsername_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_tbUsername.Text))
+                _tbUsername.Text = "Логин";
+        }
+
+        private void _tbPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (_tbPassword.Password.Equals("******", StringComparison.OrdinalIgnoreCase))
+                _tbPassword.Password = string.Empty;
+        }
+
+        private void _tbPassword_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_tbPassword.Password))
+                _tbPassword.Password = "******";
+        }
+
+        private void _tbPassword2_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (_tbPassword2.Password.Equals("******", StringComparison.OrdinalIgnoreCase))
+                _tbPassword2.Password = string.Empty;
+        }
+
+        private void _tbPassword2_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_tbPassword2.Password))
+                _tbPassword2.Password = "******";
+        }
     }
 }

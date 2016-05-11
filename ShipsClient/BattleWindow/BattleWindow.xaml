@@ -19,7 +19,7 @@
             <RowDefinition Height="29*"/>
             <RowDefinition Height="241*"/>
         </Grid.RowDefinitions>
-        <Rectangle x:Name="_rectangle" RadiusX="20" RadiusY="20" Width="Auto" Height="Auto" Grid.RowSpan="2" Margin="0">
+        <Rectangle x:Name="_rectangle" RadiusX="20" RadiusY="20" Width="Auto" Height="Auto" Grid.RowSpan="2">
             <Rectangle.Effect>
                 <DropShadowEffect Opacity="0.2" RenderingBias="Quality"/>
             </Rectangle.Effect>
@@ -47,11 +47,22 @@
             </Border>
             <Canvas Name="_oponentGridChild" Height="257" VerticalAlignment="Top" d:IsLocked="True"/>
         </Grid>
-        <TextBlock x:Name="_tbMyTextBlock" Margin="68,0,366,420" FontSize="23" Foreground="#4114cb" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" Grid.Row="1"/>
-        <TextBlock x:Name="_tbOponentTextBlock" Margin="369,0,65,419" Text="" FontSize="22" Foreground="#4114cb" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" RenderTransformOrigin="0.5,0.5" Grid.Row="1"/>
+        <TextBlock x:Name="_tbMyTextBlock" Margin="68,3,366,417" FontSize="23" Foreground="#4114cb" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" Grid.Row="1"/>
+        <TextBlock x:Name="_tbOponentTextBlock" Margin="369,2,65,417" FontSize="22" Foreground="#4114cb" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" RenderTransformOrigin="0.5,0.5" Grid.Row="1"/>
         <Canvas x:Name="_canShotCanvas" HorizontalAlignment="Left" Height="99" Margin="322,111,0,0" Grid.Row="1" VerticalAlignment="Top" Width="48"/>
-        <TextBlock x:Name="textBlock" Foreground="#4114cb" HorizontalAlignment="Center" Margin="40,35,617,163" Grid.Row="1" TextWrapping="Wrap" Text="А Б В Г Д Е И Ж З К" VerticalAlignment="Center" RenderTransformOrigin="-0.571,-0.062" Width="28" Height="253" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="22"/>
-        <TextBlock x:Name="textBlock_Copy" Foreground="#4114cb" HorizontalAlignment="Center" Margin="626,34,31,164" Grid.Row="1" TextWrapping="Wrap" Text="А Б В Г Д Е И Ж З К" VerticalAlignment="Center" RenderTransformOrigin="-0.571,-0.062" Width="28" Height="253" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="22"/>
-        <Button x:Name="_btChatMessage" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="450,361,0,0" Grid.Row="1" VerticalAlignment="Top" Width="170" RenderTransformOrigin="0.353,1.425" ToolTip="В бой!" Content="Отправить" Height="58"/>
+        <TextBlock x:Name="textBlock" Foreground="#4114cb" HorizontalAlignment="Center" Margin="40,35,617,163" Grid.Row="1" TextWrapping="Wrap" Text="А Б В Г Д Е И Ж З К" VerticalAlignment="Center" RenderTransformOrigin="-0.571,-0.062" Width="28" Height="253" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="22" TextAlignment="Center"/>
+        <TextBlock x:Name="textBlock_Copy" Foreground="#4114cb" HorizontalAlignment="Center" Margin="622,34,35,164" Grid.Row="1" TextWrapping="Wrap" Text="А Б В Г Д Е И Ж З К" VerticalAlignment="Center" RenderTransformOrigin="-0.571,-0.062" Width="28" Height="253" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="22" TextAlignment="Center"/>
+        <Button x:Name="_btChatMessage" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="418,370,0,0" Grid.Row="1" VerticalAlignment="Top" Width="157" RenderTransformOrigin="0.353,1.425" ToolTip="В бой!" Content="Отправить" Height="58" Click="_btChatMessage_Click"/>
+        <RichTextBox x:Name="_rchChat" Foreground="#4114cb" HorizontalAlignment="Left" BorderBrush="Transparent" BorderThickness="0" Height="102" Margin="40,334,0,0" VerticalAlignment="Top" Width="282" RenderTransformOrigin="0.371,0.37" Grid.Row="1" AutoWordSelection="False" IsReadOnlyCaretVisible="True" IsDocumentEnabled="False" FontSize="17" FontFamily="Monotype Corsiva" IsReadOnly="True">
+            <RichTextBox.Background>
+                <ImageBrush ImageSource="/ShipsClient;component/Resources/battlearea.png"/>
+            </RichTextBox.Background>
+        </RichTextBox>
+        <TextBox x:Name="_tbChatMessage" TextWrapping="Wrap" Foreground="#4114cb" BorderThickness="0" BorderBrush="Transparent" FontFamily="Monotype Corsiva" Padding="5,2,5,2" HorizontalAlignment="Left" Margin="366,306,0,0" Grid.Row="1" VerticalAlignment="Top" Width="258" Height="59" FontSize="15">
+            <TextBox.Background>
+                <ImageBrush ImageSource="/ShipsClient;component/Resources/chat_border_input.png"/>
+            </TextBox.Background>
+        </TextBox>
+        <TextBlock x:Name="_tbChatInfo" HorizontalAlignment="Left" Margin="42,307,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Чат:" VerticalAlignment="Top" RenderTransformOrigin="-3.694,-0.312" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="25" Foreground="#FF4114CB"/>
     </Grid>
 </Window>

@@ -19,7 +19,7 @@
             <RowDefinition/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
-        <Rectangle RadiusX="20" RadiusY="20" Width="Auto" Height="Auto" Grid.RowSpan="2" Margin="0">
+        <Rectangle RadiusX="20" RadiusY="20" Width="Auto" Height="Auto" Grid.RowSpan="2" Margin="0,-10,0,10">
             <Rectangle.Effect>
                 <DropShadowEffect Opacity="0.2" RenderingBias="Quality"/>
             </Rectangle.Effect>
@@ -32,9 +32,9 @@
             <Button x:Name="_btMinimize" Template="{StaticResource ButtonTemplateWinMin}" Click="_btMinimize_Click" d:LayoutOverrides="Height, TopPosition, BottomPosition" Margin="0,0,10,0" HorizontalAlignment="Right"/>
         </DockPanel>
         <TextBlock x:Name="_tbErrors" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="32,42,0,0" Height="32" Width="401" Foreground="#FFFF0E0E" FontWeight="Bold" FontFamily="Malgun Gothic" Grid.RowSpan="2"/>
-        <TextBox x:Name="_tbUsername" Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" Margin="32,60,0,0" Grid.Row="1" Text="Логин" VerticalAlignment="Top" Width="200" Height="57" FontSize="30"/>
-        <PasswordBox x:Name="_tbPassword" Style="{StaticResource PasswordBoxStyle}" HorizontalAlignment="Left" Password="******" Margin="247,30,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" Height="57" FontSize="30"/>
-        <PasswordBox x:Name="_tbPassword2" Style="{StaticResource PasswordBoxStyle}" HorizontalAlignment="Left" Password="******" Margin="247,93,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" Height="57" FontSize="30"/>
-        <Button x:Name="_btPlay" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="125,167,0,0" Grid.Row="1" VerticalAlignment="Top" Width="237" RenderTransformOrigin="0.353,1.425" ToolTip="Войти" Click="_btPlay_Click" Content="Регистрация" Height="50" FontSize="30"/>
+        <TextBox x:Name="_tbUsername" Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" Margin="32,60,0,0" Grid.Row="1" Text="Логин" VerticalAlignment="Top" Width="200" Height="57" FontSize="30" GotFocus="_tbUsername_GotFocus" LostFocus="_tbUsername_LostFocus"/>
+        <PasswordBox x:Name="_tbPassword" Style="{StaticResource PasswordBoxStyle}" HorizontalAlignment="Left" Password="******" Margin="247,30,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" Height="57" FontSize="30" GotFocus="_tbPassword_GotFocus" LostFocus="_tbPassword_LostFocus"/>
+        <PasswordBox x:Name="_tbPassword2" Style="{StaticResource PasswordBoxStyle}" HorizontalAlignment="Left" Password="******" Margin="247,93,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" Height="57" FontSize="30" GotFocus="_tbPassword2_GotFocus" LostFocus="_tbPassword2_LostFocus"/>
+        <Button x:Name="_btPlay" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="125,158,0,0" Grid.Row="1" VerticalAlignment="Top" Width="237" RenderTransformOrigin="0.353,1.425" ToolTip="Войти" Click="_btPlay_Click" Content="Регистрация" Height="50" FontSize="30"/>
     </Grid>
 </Window>
