@@ -160,5 +160,11 @@ namespace ShipsClient.Auth
             if (string.IsNullOrEmpty(_tbPassword.Password))
                 _tbPassword.Password = "******";
         }
+
+        private void Rectangle_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            _tbUsername_LostFocus(null, null);
+            _tbPassword_LostFocus(null, null);
+        }
     }
 }

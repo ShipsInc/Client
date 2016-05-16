@@ -5,6 +5,7 @@ using ShipsClient.BattleWindow;
 using ShipsClient.Common;
 using ShipsClient.Enums;
 using ShipsClient.Game;
+using ShipsClient.MainWindow;
 using ShipsClient.Messages;
 
 namespace ShipsClient.Protocol
@@ -88,8 +89,7 @@ namespace ShipsClient.Protocol
                     Application.Current.Dispatcher.Invoke(new Action(() =>
                     {
                         AuthWindow.Form.ResetControls();
-                        MainWindow.MainWindow window = new MainWindow.MainWindow();
-                        window.Owner = AuthWindow.Form;
+                        MainWindow.MainWindow window = new MainWindow.MainWindow {Owner = AuthWindow.Form};
                         window.Show();
                         AuthWindow.Form.Visibility = Visibility.Hidden;
                     }));
@@ -120,14 +120,13 @@ namespace ShipsClient.Protocol
                 }
                 case RegistrationResponse.REG_RESPONSE_SUCCESS:
                 {
-                    Application.Current.Dispatcher.Invoke(new Action(() =>
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
                         AuthWindow.Form.ResetControls();
-                        MainWindow.MainWindow window = new MainWindow.MainWindow();
-                        window.Owner = AuthWindow.Form;
+                        var window = new MainWindow.MainWindow {Owner = AuthWindow.Form};
                         window.Show();
                         RegistrationWindow.Form.Close();
-                    }));
+                    });
                     break;
                 }
                 default:
@@ -142,10 +141,10 @@ namespace ShipsClient.Protocol
         {
             string username = packet.ReadUTF8String();
 
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 MainWindow.MainWindow.Form.ProfileButton = username;
-            }));
+            });
         }
 
         private static void HandleGetGamesResponse(Packet packet)
@@ -153,10 +152,10 @@ namespace ShipsClient.Protocol
             int count = packet.ReadInt32();
             if (count == 0) // На сервер не оказалось игр к которым можно подключиться
             {
-                Application.Current.Dispatcher.Invoke(new Action(() =>
+                Application.Current.Dispatcher.Invoke(() =>
                 {
                     MainWindow.MainWindow.Form.EmptyGames();
-                }));
+                });
                 return;
             }
 
@@ -164,21 +163,21 @@ namespace ShipsClient.Protocol
             for (int i = 0; i < count; ++i)
                 battles[i] = packet.ReadInt32();
 
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 var rnd = new Random();
                 MainWindow.MainWindow.Form.JoinBattle(battles[rnd.Next(count)]);
-            }));
+            });
         }
 
         private static void HandleBattleInitialBattle(Packet packet)
         {
             var battleId = packet.ReadInt32();
             var responseCode = (BattleResponse) packet.ReadUInt8();
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 PreBattleWindow.Form.InitialBattleWindow(battleId, responseCode, "", "Ожид. против.");
-            }));
+            });
         }
 
         private static void HandleBattleShotResult(Packet packet)
@@ -186,18 +185,18 @@ namespace ShipsClient.Protocol
             var result = packet.ReadUInt8();
             var x = packet.ReadUInt8();
             var y = packet.ReadUInt8();
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 BattleWindow.BattleWindow.Form.ShotResult(x, y, (ShotResult) result);
-            }));
+            });
         }
 
         private static void HandleBattleCanShot(Packet packet)
         {
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 BattleWindow.BattleWindow.Form.CanShot = true;
-            }));
+            });
         }
 
         private static void HandleBattleResponse(Packet packet)
@@ -210,11 +209,11 @@ namespace ShipsClient.Protocol
                     var battleId = packet.ReadInt32();
                     var myUsername = packet.ReadUTF8String();
                     var opUsername = packet.ReadUTF8String();
-                    Application.Current.Dispatcher.Invoke(new Action(() =>
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
                         PreBattleWindow.Form.InitialBattleWindow(battleId, responseCode, myUsername,
                             opUsername);
-                    }));
+                    });
                     break;
                 }
                 default:
@@ -224,20 +223,20 @@ namespace ShipsClient.Protocol
 
         private static void HandleBattleOponentJoined(Packet packet)
         {
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 var myName = packet.ReadUTF8String();
                 var oponentName = packet.ReadUTF8String();
                 BattleWindow.BattleWindow.Form.MyTextBlock = myName;
                 BattleWindow.BattleWindow.Form.OponentTextBlock = oponentName;
                 BattleWindow.BattleWindow.Form.StartBattle();
-            }));
+            });
         }
 
         private static void HandleBattleShipDrowned(Packet packet)
         {
             var count = packet.ReadUInt8();
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 for (int i = 0; i < count; ++i)
                 {
@@ -251,23 +250,23 @@ namespace ShipsClient.Protocol
                 var shipX = packet.ReadUInt8();
                 var shipY = packet.ReadUInt8();
                 BattleWindow.BattleWindow.Form.ShipDrowned(new Ship(length, (ShipOrientation)orientation, shipX, shipY, length));
-            }));
+            });
         }
 
         private static void HandleBattleOponentLeave(Packet packet)
         {
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 BattleWindow.BattleWindow.Form.EndBattle(true);
-            }));
+            });
         }
 
         private static void HandleBattleFinish(Packet packet)
         {
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 BattleWindow.BattleWindow.Form.EndBattle(false, packet.ReadUInt8() == 1 ? true : false);
-            }));
+            });
         }
 
         private static void HandleBattleOponentShotResult(Packet packet)
@@ -275,10 +274,10 @@ namespace ShipsClient.Protocol
             var result = (ShotResult)packet.ReadUInt8();
             var x = packet.ReadUInt8();
             var y = packet.ReadUInt8();
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 BattleWindow.BattleWindow.Form.UpdateBoard(x, y, result);
-            }));
+            });
         }
 
         private static void HandleGetStatisticsResponse(Packet packet)
@@ -286,10 +285,17 @@ namespace ShipsClient.Protocol
             var lastBattle = packet.ReadUInt32();
             var wins = packet.ReadUInt16();
             var loose = packet.ReadUInt16();
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                MainWindow.StatisticsWindow.Form.RecivieStatistics(lastBattle, wins, loose);
-            }));
+                if (lastBattle == 0)
+                {
+                    new NotificationWindow.NotificationWindow("Статистика", "Для вас нету статистики. Возможно вы еще не сыграли ни одного боя...").ShowDialog();
+                    return;
+                }
+
+                var window = new StatisticsWindow(lastBattle, wins, loose) { Owner = MainWindow.MainWindow.Form };
+                window.ShowDialog();
+            });
         }
 
         private static void HandleChatMessage(Packet packet)
@@ -297,10 +303,10 @@ namespace ShipsClient.Protocol
             var username = packet.ReadUTF8String();
             var text = packet.ReadUTF8String();
 
-            Application.Current.Dispatcher.Invoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 BattleWindow.BattleWindow.Form.RecivieMessage(username, text);
-            }));
+            });
         }
     }
 }

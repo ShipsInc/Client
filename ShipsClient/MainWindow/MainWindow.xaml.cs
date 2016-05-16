@@ -41,8 +41,7 @@ namespace ShipsClient.MainWindow
         {
             TCPSocket.Instance.SendPacket(new Packet((int)Opcodes.CMSG_PROFILE));
 
-            KeepAliveTimer = new System.Timers.Timer(30000);
-            KeepAliveTimer.Enabled = true;
+            KeepAliveTimer = new Timer(30000) {Enabled = true};
             KeepAliveTimer.Elapsed += new ElapsedEventHandler(KeepAlive);
         }
 
@@ -107,8 +106,7 @@ namespace ShipsClient.MainWindow
 
         private void _btProfile_Click(object sender, RoutedEventArgs e)
         {
-            var window = new StatisticsWindow() {Owner = this.Owner};
-            window.ShowDialog();
+            TCPSocket.Instance.SendPacket(new Packet((int)Opcodes.CMSG_GET_STATISTICS));
         }
     }
 }

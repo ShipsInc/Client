@@ -19,7 +19,7 @@
             <RowDefinition/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
-        <Rectangle RadiusX="20" RadiusY="20" Width="Auto" Height="Auto" Grid.RowSpan="2" Margin="0">
+        <Rectangle RadiusX="20" RadiusY="20" Width="Auto" Height="Auto" Grid.RowSpan="2" Margin="0" IsVisibleChanged="Rectangle_IsVisibleChanged">
             <Rectangle.Effect>
                 <DropShadowEffect Opacity="0.4" RenderingBias="Quality"/>
             </Rectangle.Effect>

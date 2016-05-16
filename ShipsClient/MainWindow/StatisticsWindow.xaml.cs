@@ -10,21 +10,19 @@ namespace ShipsClient.MainWindow
     /// </summary>
     public partial class StatisticsWindow : Window
     {
+        private uint LastGame { get; set; }
+        private uint Wins { get; set; }
+        private uint Loose { get; set; }
+
         public static StatisticsWindow Form;
-        public StatisticsWindow()
+        public StatisticsWindow(uint lastGame, uint wins, uint loose)
         {
             InitializeComponent();
             Form = this;
 
-            TCPSocket.Instance.SendPacket(new Packet((int)Opcodes.CMSG_GET_STATISTICS));
-        }
-
-        public void RecivieStatistics(uint lastGame, uint wins, uint loose)
-        {
-            _tbLastGameValue.Text = lastGame > 0 ? string.Format("{0:dd-MM-yyyy}", Time.UnixTimeStampToDateTime(lastGame)) : "00-00-0000";
-            _tbWinValue.Text = wins.ToString();
-            _tbLooseValue.Text = loose.ToString();
-            _tbTotalGamesValue.Text = (wins + loose).ToString();
+            LastGame = lastGame;
+            Wins = wins;
+            Loose = loose;
         }
 
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -47,6 +45,14 @@ namespace ShipsClient.MainWindow
         private void _btMinimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            _tbLastGameValue.Text = LastGame > 0 ? $"{Time.UnixTimeStampToDateTime(LastGame):dd-MM-yyyy}" : "00-00-0000";
+            _tbWinValue.Text = Wins.ToString();
+            _tbLooseValue.Text = Loose.ToString();
+            _tbTotalGamesValue.Text = (Wins + Loose).ToString();
         }
     }
 }

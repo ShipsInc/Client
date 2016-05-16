@@ -7,11 +7,11 @@ using System.Windows;
 // Управление общими сведениями о сборке осуществляется с помощью 
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("ShipsClient")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Морской Бой")]
+[assembly: AssemblyDescription("Сетевой морской Морской Бой")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ShipsClient")]
+[assembly: AssemblyCompany("ГрГУ Я. Купалы. Антоневич Артур")]
+[assembly: AssemblyProduct("Морской Бой")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

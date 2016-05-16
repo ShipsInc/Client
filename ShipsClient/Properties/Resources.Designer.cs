@@ -191,6 +191,16 @@ namespace ShipsClient.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
+        /// </summary>
+        internal static System.Drawing.Icon icon_sea_ships {
+            get {
+                object obj = ResourceManager.GetObject("icon_sea_ships", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap minimize {
@@ -256,16 +266,6 @@ namespace ShipsClient.Properties {
         internal static System.Drawing.Bitmap res_big_ship {
             get {
                 object obj = ResourceManager.GetObject("res_big_ship", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap res_numbers {
-            get {
-                object obj = ResourceManager.GetObject("res_numbers", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
