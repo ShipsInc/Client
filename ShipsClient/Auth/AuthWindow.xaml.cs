@@ -77,7 +77,7 @@ namespace ShipsClient.Auth
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Task.Factory.StartNew(() => { TCPSocket.Instance.Connect("127.0.0.1", 8085); });
+            Task.Factory.StartNew(() => { TCPSocket.Instance.Connect(Constants.CONNECT_INFO_HOST, Constants.CONNECT_INFO_PORT); });
         }
 
         private void _btClose_Click(object sender, RoutedEventArgs e)

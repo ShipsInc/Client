@@ -3,7 +3,7 @@
     public class Constants
     {
         // Информация о соединении
-        public static readonly string CONNECT_INFO_HOST                 = "10.31.175.111";
+        public static readonly string CONNECT_INFO_HOST                 = "37.46.134.95";
         public static readonly int CONNECT_INFO_PORT                    = 8085;
 
         // Общая

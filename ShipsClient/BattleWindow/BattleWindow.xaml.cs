@@ -213,5 +213,11 @@ namespace ShipsClient.BattleWindow
             _rchChat.AppendText($"{username}: {text}\r");
             _rchChat.ScrollToEnd();
         }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                _btChatMessage_Click(null, null);
+        }
     }
 }

@@ -44,5 +44,21 @@
         <Button x:Name="_btRandom" Style="{StaticResource ButtonTemplateStyle}" HorizontalAlignment="Left" Margin="344,130,0,0" Grid.Row="1" VerticalAlignment="Top" Width="143" RenderTransformOrigin="0.353,1.425" ToolTip="В бой!" Click="_btRandom_Click" Content="Случайно" Height="58"/>
         <TextBlock x:Name="textBlock" Foreground="#4114cb" HorizontalAlignment="Center" Margin="36,12,564,39" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" RenderTransformOrigin="-0.571,-0.062" Width="28" Height="253" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="22" TextAlignment="Center"><Run Text="А Б В Г Д Е И Ж З К"/></TextBlock>
         <TextBlock x:Name="textBlock2" Foreground="#4114cb" Margin="65,45,313,290" TextWrapping="Wrap" RenderTransformOrigin="0,0" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="23" TextAlignment="Left" Grid.RowSpan="2"/>
+        <Canvas HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="266" Margin="342,14,0,0" Grid.Row="1">
+            <Canvas.Background>
+                <ImageBrush ImageSource="/ShipsClient;component/Resources/Other/res_big_ship.png"/>
+            </Canvas.Background>
+        </Canvas>
+        <Canvas HorizontalAlignment="Left" Height="100" Margin="735,164,-207,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
+        <TextBlock x:Name="_tbNumbers1" Text="1" Foreground="#4114cb" Margin="73,46,541,289" TextWrapping="Wrap" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="26" Grid.RowSpan="2"/>
+        <TextBlock x:Name="_tbNumbers2" Text="2" Foreground="#4114cb" Margin="96,46,514,288" TextWrapping="Wrap" Height="31" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="26" Grid.RowSpan="2"/>
+        <TextBlock x:Name="_tbNumbers3" Text="3" Foreground="#4114cb" Margin="122,41,490,292" TextWrapping="Wrap" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="26" Grid.RowSpan="2"/>
+        <TextBlock x:Name="_tbNumbers4" Text="4" Foreground="#4114cb" Margin="145,42,467,292" TextWrapping="Wrap" Height="31" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="26" Grid.RowSpan="2"/>
+        <TextBlock x:Name="_tbNumbers5" Text="5" Foreground="#4114cb" Margin="171,41,441,293" TextWrapping="Wrap" Height="31" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="26" Grid.RowSpan="2"/>
+        <TextBlock x:Name="_tbNumbers6" Text="6" Foreground="#4114cb" Margin="196,45,414,289" TextWrapping="Wrap" Height="31" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="26" Grid.RowSpan="2"/>
+        <TextBlock x:Name="_tbNumbers7" Text="7" Foreground="#4114cb" Margin="221,41,390,293" TextWrapping="Wrap" Height="31" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="26" Grid.RowSpan="2"/>
+        <TextBlock x:Name="_tbNumbers8" Text="8" Foreground="#4114cb" Margin="245,45,367,289" TextWrapping="Wrap" Height="31" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="26" Grid.RowSpan="2"/>
+        <TextBlock x:Name="_tbNumbers9" Text="9" Foreground="#4114cb" Margin="270,40,340,294" TextWrapping="Wrap" Height="31" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="26" Grid.RowSpan="2"/>
+        <TextBlock x:Name="_tbNumbers10" Text="10" Foreground="#4114cb" Margin="293,44,302,290" TextWrapping="Wrap" Height="31" FontFamily="/ShipsClient;component/Resources/Fonts/#BYRIL_Sea_Battle2" FontSize="26" Grid.RowSpan="2"/>
     </Grid>
 </Window>

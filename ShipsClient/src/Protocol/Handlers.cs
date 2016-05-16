@@ -177,7 +177,7 @@ namespace ShipsClient.Protocol
             var responseCode = (BattleResponse) packet.ReadUInt8();
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                PreBattleWindow.Form.InitialBattleWindow(battleId, responseCode, "", "Ожидайте противника");
+                PreBattleWindow.Form.InitialBattleWindow(battleId, responseCode, "", "Ожид. против.");
             }));
         }
 
