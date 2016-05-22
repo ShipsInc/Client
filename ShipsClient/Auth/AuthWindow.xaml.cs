@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using ShipsClient.Messages;
+using ShipsClient.Protocol;
+using ShipsClient.Protocol.Parser;
 
 namespace ShipsClient.Auth
 {
@@ -14,10 +16,8 @@ namespace ShipsClient.Auth
     /// </summary>
     public partial class AuthWindow : Window
     {
-        private static AuthWindow _instance = null;
-        private static readonly object lockObj = new object();
-        private static BackgroundWorker backgroundWorker = new BackgroundWorker();
-
+        private static AuthWindow _instance;
+        private static readonly object LockObj = new object();
         public static AuthWindow Form;
 
         public AuthWindow()
@@ -30,7 +30,7 @@ namespace ShipsClient.Auth
         {
             get
             {
-                lock (lockObj)
+                lock (LockObj)
                 {
                     if (_instance == null)
                         _instance = new AuthWindow();
@@ -83,7 +83,7 @@ namespace ShipsClient.Auth
         private void _btClose_Click(object sender, RoutedEventArgs e)
         {
             if (TCPSocket.Instance.IsOpen())
-                TCPSocket.Instance.SendPacket(new Packet((int)Opcodes.CMSG_DISCONNECTED));
+                TCPSocket.Instance.SendPacket(new Packet(Opcode.CMSG_DISCONNECTED));
 
             Close();
         }
@@ -107,7 +107,7 @@ namespace ShipsClient.Auth
 
             _btPlay.IsEnabled = false;
             _tbErrors.Text = "";
-            var packet = new Packet((int)Opcodes.CMSG_AUTH);
+            var packet = new Packet(Opcode.CMSG_AUTH);
             packet.WriteUTF8String(_tbUsername.Text);
             packet.WriteUTF8String(_tbPassword.Password);
             TCPSocket.Instance.SendPacket(packet);

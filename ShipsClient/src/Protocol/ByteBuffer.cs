@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ShipsClient.Common
+namespace ShipsClient.Protocol
 {
     /// <summary>
     /// Byte buffer.
@@ -16,6 +12,7 @@ namespace ShipsClient.Common
         private BinaryWriter w = null;
         private MemoryStream m = null;
         private BinaryReader r = null;
+
         public ByteBuffer(int size = 1024)
         {
             m = new MemoryStream(size);
@@ -252,11 +249,10 @@ namespace ShipsClient.Common
             if (nullTerminated)
                 val += '\0';
 
-            var utf8bytes = Encoding.UTF8.GetBytes(val);
-            var asciibytes = Encoding.ASCII.GetBytes(val);
+            var bytes = Encoding.ASCII.GetBytes(val);
 
-            WriteUInt16((ushort)(utf8bytes.Length != asciibytes.Length ? (val.Length * 2) : val.Length));
-            w.Write(asciibytes);
+            WriteUInt16((ushort)bytes.Length);
+            w.Write(bytes);
         }
 
         public void WriteUTF8String(string val, bool nullTerminated = false)
@@ -264,19 +260,17 @@ namespace ShipsClient.Common
             if (nullTerminated)
                 val += '\0';
 
-            var utf8bytes = Encoding.UTF8.GetBytes(val);
-            var asciibytes = Encoding.ASCII.GetBytes(val);
-
-            WriteUInt16((ushort)(utf8bytes.Length != asciibytes.Length ? (val.Length * 2) : val.Length));
-            w.Write(utf8bytes);
+            var bytes = Encoding.UTF8.GetBytes(val);
+            WriteUInt16((ushort)bytes.Length);
+            w.Write(bytes);
         }
 
         public string ReadUTF8String()
         {
             try
             {
-                ushort charsCount = ReadUInt16();
-                byte[] bytes = r.ReadBytes(charsCount);
+                ushort bytesCount = ReadUInt16();
+                byte[] bytes = r.ReadBytes(bytesCount);
                 return Encoding.UTF8.GetString(bytes);
             }
             catch (Exception)
@@ -291,8 +285,8 @@ namespace ShipsClient.Common
         {
             try
             {
-                ushort charsCount = ReadUInt16();
-                byte[] bytes = r.ReadBytes(charsCount);
+                ushort bytesCount = ReadUInt16();
+                byte[] bytes = r.ReadBytes(bytesCount);
                 return Encoding.ASCII.GetString(bytes);
             }
             catch (Exception)

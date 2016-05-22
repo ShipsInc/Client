@@ -4,6 +4,7 @@ using System.Windows.Input;
 using ShipsClient.Common;
 using ShipsClient.Messages;
 using ShipsClient.Network;
+using ShipsClient.Protocol;
 
 namespace ShipsClient.Auth
 {
@@ -84,7 +85,7 @@ namespace ShipsClient.Auth
             }
 
             _tbErrors.Text = "";
-            Packet packet = new Packet((int)Opcodes.CMSG_REGISTRATION);
+            Packet packet = new Packet(Opcode.CMSG_REGISTRATION);
             packet.WriteUTF8String(_tbUsername.Text);
             packet.WriteUTF8String(_tbPassword.Password);
             TCPSocket.Instance.SendPacket(packet);

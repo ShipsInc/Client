@@ -9,6 +9,7 @@ using ShipsClient.Common;
 using ShipsClient.Enums;
 using ShipsClient.Game;
 using ShipsClient.Network;
+using ShipsClient.Protocol;
 using Brush = System.Drawing.Brush;
 
 namespace ShipsClient.BattleWindow
@@ -101,7 +102,7 @@ namespace ShipsClient.BattleWindow
 
             if (MyBoard.Status == BoardStatus.BOARD_STATUS_BATTLE || MyBoard.Status == BoardStatus.BOARD_STATUS_WAIT_OPONENT)
             {
-                var packet = new Packet((int)Opcodes.CMSG_BATTLE_LEAVE);
+                var packet = new Packet(Opcode.CMSG_BATTLE_LEAVE);
                 packet.WriteInt32(BattleId);
                 TCPSocket.Instance.SendPacket(packet);
             }
@@ -140,7 +141,7 @@ namespace ShipsClient.BattleWindow
                 return;
 
             _canShot = false;
-            var packet = new Packet((int)Opcodes.CMSG_BATTLE_SHOT);
+            var packet = new Packet(Opcode.CMSG_BATTLE_SHOT);
             packet.WriteInt32(BattleId);
             packet.WriteUInt8((byte)e.X);
             packet.WriteUInt8((byte)e.Y);
@@ -200,7 +201,7 @@ namespace ShipsClient.BattleWindow
             _rchChat.AppendText($"Вы: {_tbChatMessage.Text}\r");
             _rchChat.ScrollToEnd();
 
-            var packet = new Packet((int)Opcodes.CMSG_CHAT_SEND_MESSAGE);
+            var packet = new Packet(Opcode.CMSG_CHAT_SEND_MESSAGE);
             packet.WriteInt32(BattleId);
             packet.WriteUTF8String(_tbChatMessage.Text);
             TCPSocket.Instance.SendPacket(packet);

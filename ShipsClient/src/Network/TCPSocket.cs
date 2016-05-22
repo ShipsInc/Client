@@ -3,41 +3,47 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Timers;
+using System.Windows;
 using ShipsClient.Protocol;
+using ShipsClient.Protocol.Parser;
 
 namespace ShipsClient.Network
 {
     public class TCPSocket
     {
         // ManualResetEvent instances signal completion.
-        private readonly ManualResetEvent connectDone = new ManualResetEvent(false);
-        private readonly ManualResetEvent sendPacketDone = new ManualResetEvent(false);
-        private readonly ManualResetEvent receivePacketDone = new ManualResetEvent(false);
+        private readonly ManualResetEvent _connectDone = new ManualResetEvent(false);
+        private readonly ManualResetEvent _sendPacketDone = new ManualResetEvent(false);
+        private readonly ManualResetEvent _receivePacketDone = new ManualResetEvent(false);
 
-        private byte[] ReadBuffer;
+        private readonly byte[] _readBuffer;
 
         private Socket Socket { get; set; }
 
-        private string IP { get; set; }
+        private string Ip
+        {
+            get { return _ip; }
+            set { _ip = value; }
+        }
+
         private int Port { get; set; }
 
         private static TCPSocket _instance;
 
-        private readonly System.Timers.Timer PacketTimer;
-        private readonly Queue<Packet> SendPacketQueue;
+        private readonly Queue<Packet> _sendPacketQueue;
+        private string _ip;
 
         private TCPSocket()
         {
-            ReadBuffer = new byte[Constants.BUFFER_SIZE];
+            _readBuffer = new byte[Constants.BUFFER_SIZE];
 
-            PacketTimer = new System.Timers.Timer(50);
-            PacketTimer.Elapsed += UpdateSendQueue;
-            PacketTimer.Start();
+            var packetTimer = new System.Timers.Timer(50);
+            packetTimer.Elapsed += UpdateSendQueue;
+            packetTimer.Start();
 
-            SendPacketQueue = new Queue<Packet>();
+            _sendPacketQueue = new Queue<Packet>();
             Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 
@@ -65,17 +71,17 @@ namespace ShipsClient.Network
         {
             if (ip != "" && port != 0)
             {
-                IP = ip;
+                Ip = ip;
                 Port = port;
             }
 
             // Connect to a remote device.
             try
             {
-                var remoteEp = new IPEndPoint(IPAddress.Parse(IP), port);
+                var remoteEp = new IPEndPoint(IPAddress.Parse(Ip), port);
                 // Connect to the remote endpoint.
-                Socket.BeginConnect(remoteEp, new AsyncCallback(ConnectCallback), null);
-                connectDone.WaitOne();
+                Socket.BeginConnect(remoteEp, ConnectCallback, null);
+                _connectDone.WaitOne();
 
                 // Receive the response from the remote device.
                 ReceivePacket();
@@ -92,11 +98,11 @@ namespace ShipsClient.Network
             {
                 // Complete the connection.
                 Socket.EndConnect(ar);
-                connectDone.Set();
+                _connectDone.Set();
             }
-            catch (Exception e)
+            catch (SocketException sockErr)
             {
-                Console.WriteLine(e.ToString());
+                OnSocketError(sockErr.SocketErrorCode);
             }
         }
 
@@ -105,11 +111,11 @@ namespace ShipsClient.Network
             try
             {
                 // Signal that all bytes have been sent.
-                sendPacketDone.Set();
+                _sendPacketDone.Set();
             }
-            catch (Exception e)
+            catch (SocketException sockErr)
             {
-                Console.WriteLine(e.ToString());
+                OnSocketError(sockErr.SocketErrorCode);
             }
         }
 
@@ -118,12 +124,12 @@ namespace ShipsClient.Network
             try
             {
                 // Begin receiving the data from the remote device.
-                Socket.BeginReceive(ReadBuffer, 0, ReadBuffer.Length, 0, new AsyncCallback(ReceiveCallback), null);
-                receivePacketDone.WaitOne();
+                Socket.BeginReceive(_readBuffer, 0, _readBuffer.Length, 0, ReceiveCallback, null);
+                _receivePacketDone.WaitOne();
             }
-            catch (Exception e)
+            catch (SocketException sockErr)
             {
-                Console.WriteLine(e.ToString());
+                OnSocketError(sockErr.SocketErrorCode);
             }
         }
 
@@ -131,31 +137,27 @@ namespace ShipsClient.Network
         {
             try
             {
-                int bytes = Socket.EndReceive(ar);
-                byte[] temp = ReadBuffer;
-                Array.Resize(ref temp, bytes);
-                byte[] decryptBytes = Cryptography.Decrypt(temp);
-
-                var packet = ParsePacket(decryptBytes);
-                if (packet != null)
-                    Handlers.SelectHandler(packet);
-
-                Array.Clear(ReadBuffer, 0, ReadBuffer.Length);
-
                 try
                 {
-                    Socket.BeginReceive(ReadBuffer, 0, ReadBuffer.Length, 0, new AsyncCallback(ReceiveCallback), null);
+                    var bytes = Socket.EndReceive(ar);
+                    byte[] temp = _readBuffer;
+                    Array.Resize(ref temp, bytes);
+                    byte[] decryptBytes = Cryptography.Decrypt(temp);
+
+                    var packet = ParsePacket(decryptBytes);
+                    if (packet != null)
+                        Handler.SelectHandler(packet);
+
+                    Array.Clear(_readBuffer, 0, _readBuffer.Length);
+
+                    Socket.BeginReceive(_readBuffer, 0, _readBuffer.Length, 0, ReceiveCallback, null);
                 }
-                catch (Exception)
+                catch (SocketException sockErr)
                 {
-                    App.Current.Dispatcher.Invoke(new Action(() =>
-                    {
-                        new NotificationWindow.NotificationWindow("Отключение от сервера", "Ой, что-то пошло не так и вы были отключаны от сервера...").ShowDialog();
-                        Environment.Exit(0);
-                    }));
+                    OnSocketError(sockErr.SocketErrorCode);
                     return;
                 }
-                receivePacketDone.Set();
+                _receivePacketDone.Set();
             }
             catch (Exception e)
             {
@@ -166,10 +168,10 @@ namespace ShipsClient.Network
         private Packet ParsePacket(byte[] bytes)
         {
             var buffer = new ByteBuffer(bytes);
-            UInt16 opcode = buffer.ReadUInt16();
-            UInt16 size = buffer.ReadUInt16();
+            Opcode opcode = (Opcode)buffer.ReadUInt16();
+            var size = buffer.ReadUInt16();
 
-            if ((Opcodes)opcode >= Opcodes.MAX_OPCODE)
+            if (opcode >= Opcode.MAX_OPCODE)
                 return null;
 
             if (size > 1000)
@@ -194,22 +196,18 @@ namespace ShipsClient.Network
         public void SendPacket(Packet packet, bool now = false)
         {
             if (!now)
-                SendPacketQueue.Enqueue(packet);
+                _sendPacketQueue.Enqueue(packet);
             else
             {
                 try
                 {
                     WriteHeader(packet);
                     byte[] cryptBytes = Cryptography.Encrypt(packet.ToArray());
-                    Socket.BeginSend(cryptBytes, 0, cryptBytes.Length, 0, new AsyncCallback(SendPacketCallback), null);
+                    Socket.BeginSend(cryptBytes, 0, cryptBytes.Length, 0, SendPacketCallback, null);
                 }
-                catch (Exception)
+                catch (SocketException sockErr)
                 {
-                    App.Current.Dispatcher.Invoke(new Action(() =>
-                    {
-                        new NotificationWindow.NotificationWindow("Отключение от сервера", "Ой, что-то пошло не так и вы были отключаны от сервера...").ShowDialog();
-                        Environment.Exit(0);
-                    }));
+                    OnSocketError(sockErr.SocketErrorCode);
                     return;
                 }
             }
@@ -217,27 +215,54 @@ namespace ShipsClient.Network
 
         private void UpdateSendQueue(object sender, ElapsedEventArgs e)
         {
-            while (SendPacketQueue.Count != 0)
+            while (_sendPacketQueue.Count != 0)
             {
-                var packet = SendPacketQueue.Dequeue();
+                var packet = _sendPacketQueue.Dequeue();
                 WriteHeader(packet);
                 byte[] cryptBytes = Cryptography.Encrypt(packet.ToArray());
                 try
                 {
-                    Socket.BeginSend(cryptBytes, 0, cryptBytes.Length, 0, new AsyncCallback(SendPacketCallback), null);
+                    Socket.BeginSend(cryptBytes, 0, cryptBytes.Length, 0, SendPacketCallback, null);
                 }
-                catch (Exception)
+                catch (SocketException sockErr)
                 {
-                    App.Current.Dispatcher.Invoke(new Action(() =>
-                    {
-                        new NotificationWindow.NotificationWindow("Отключение от сервера", "Ой, что-то пошло не так и вы были отключаны от сервера...").ShowDialog();
-                        Environment.Exit(0);
-                    }));
+                    OnSocketError(sockErr.SocketErrorCode);
                     return;
                 }
             }
 
-            sendPacketDone.WaitOne();
+            _sendPacketDone.WaitOne();
+        }
+
+        private void OnSocketError(SocketError err)
+        {
+            string title, text;
+            switch (err)
+            {
+                case SocketError.ConnectionRefused:
+                {
+                    title = "Соединение с сервером";
+                    text = "Не удалось установить соединение с сервером...";
+                    break;
+                }
+                case SocketError.ConnectionReset:
+                {
+                    title = "Соединение с сервером";
+                    text = "Соединение с сервером было разорвано";
+                    break;
+                }
+                default:
+                    Console.WriteLine(err);
+                    Environment.Exit(0);
+                    return;
+            }
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                new NotificationWindow.NotificationWindow(title, text).ShowDialog();
+            });
+
+            Environment.Exit(0);
         }
     }
 }

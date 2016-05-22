@@ -1,7 +1,8 @@
-﻿namespace ShipsClient.Common
+﻿namespace ShipsClient.Protocol
 {
-    public enum Opcodes : uint
+    public enum Opcode : uint
     {
+        NULL_OPCODE                         = 0x000,
         CMSG_AUTH                           = 0x001, // Auth
         CMSG_REGISTRATION                   = 0x002,
         SMSG_AUTH_RESPONSE                  = 0x003,

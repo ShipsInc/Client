@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ShipsClient.Common;
 
-namespace ShipsClient.Common
+namespace ShipsClient.Protocol
 {
     public class Packet : ByteBuffer
     {
-        public int Opcode { get; private set; }
+        public Opcode Opcode { get; private set; }
 
         public Packet() : base()
         {
-            this.Opcode = 0;
+            Opcode = 0;
         }
 
-        public Packet(int opcode) : base()
+        public Packet(Opcode opcode) : base()
         {
-            this.Opcode = opcode;
+            Opcode = opcode;
         }
     }
 }

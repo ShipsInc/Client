@@ -68,6 +68,8 @@
     <Compile Include="MainWindow\StatisticsWindow.xaml.cs">
       <DependentUpon>StatisticsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\Protocol\Parser\Handler.cs" />
+    <Compile Include="src\Protocol\Parser\ParserAttribute.cs" />
     <Page Include="Auth\AuthWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -2,74 +2,18 @@
 using System.Windows;
 using ShipsClient.Auth;
 using ShipsClient.BattleWindow;
-using ShipsClient.Common;
 using ShipsClient.Enums;
 using ShipsClient.Game;
 using ShipsClient.MainWindow;
 using ShipsClient.Messages;
+using ShipsClient.Protocol.Parser;
 
 namespace ShipsClient.Protocol
 {
     public static class Handlers
     {
-        public static void SelectHandler(Packet packet)
-        {
-            switch ((Opcodes) packet.Opcode)
-            {
-                case Opcodes.SMSG_AUTH_RESPONSE:
-                    HandleAuthResponse(packet);
-                    break;
-                case Opcodes.SMSG_REGISTRATION_RESPONSE:
-                    HandleAuthRegistration(packet);
-                    break;
-                case Opcodes.SMSG_PROFILE_RESPONSE:
-                    HandleProfileResponse(packet);
-                    break;
-                case Opcodes.SMSG_GET_GAMES_RESPONSE:
-                    HandleGetGamesResponse(packet);
-                    break;
-                case Opcodes.SMSG_BATTLE_INITIAL_BATTLE:
-                    HandleBattleInitialBattle(packet);
-                    break;
-                case Opcodes.SMSG_BATTLE_SHOT_RESULT:
-                    HandleBattleShotResult(packet);
-                    break;
-                case Opcodes.SMSG_BATTLE_CAN_SHOT:
-                    HandleBattleCanShot(packet);
-                    break;
-                case Opcodes.SMSG_BATTLE_RESPONSE:
-                    HandleBattleResponse(packet);
-                    break;
-                case Opcodes.SMSG_BATTLE_OPONENT_JOINED:
-                    HandleBattleOponentJoined(packet);
-                    break;
-                case Opcodes.SMSG_BATTLE_SHIP_DROWNED:
-                    HandleBattleShipDrowned(packet);
-                    break;
-                case Opcodes.SMSG_BATTLE_OPONENT_LEAVE:
-                    HandleBattleOponentLeave(packet);
-                    break;
-                case Opcodes.SMSG_BATTLE_FINISH:
-                    HandleBattleFinish(packet);
-                    break;
-                case Opcodes.SMSG_BATTLE_OPONENT_SHOT_RESULT:
-                    HandleBattleOponentShotResult(packet);
-                    break;
-                case Opcodes.SMSG_GET_STATISTICS_RESPONSE:
-                    HandleGetStatisticsResponse(packet);
-                    break;
-                case Opcodes.SMSG_CHAT_MESSAGE:
-                    HandleChatMessage(packet);
-                    break;
-                case Opcodes.SMSG_KEEP_ALIVE:
-                    break;
-                default:
-                    Console.WriteLine($"SelectHandler: Not found handler for opcode {packet.Opcode.ToString()}");
-                    break;
-            }
-        }
-
-        private static void HandleAuthResponse(Packet packet)
+        [Parser(Opcode.SMSG_AUTH_RESPONSE)]
+        public static void HandleAuthResponse(Packet packet)
         {
             var responseCode = (AuthResponse) packet.ReadUInt8();
             switch (responseCode)
@@ -95,15 +39,14 @@ namespace ShipsClient.Protocol
                     }));
                     break;
                 }
-                default:
-                    break;
             }
 
             // Включение кнопки входа
             AuthWindow.Form.AuthButtonEnable = true;
         }
 
-        private static void HandleAuthRegistration(Packet packet)
+        [Parser(Opcode.SMSG_REGISTRATION_RESPONSE)]
+        public static void HandleRegistrationResponse(Packet packet)
         {
             RegistrationResponse responseCode = (RegistrationResponse) packet.ReadUInt8();
             switch (responseCode)
@@ -129,15 +72,14 @@ namespace ShipsClient.Protocol
                     });
                     break;
                 }
-                default:
-                    break;
             }
 
             // Включение кнопки регистрации
             RegistrationWindow.Form.RegButtonEnable = true;
         }
 
-        private static void HandleProfileResponse(Packet packet)
+        [Parser(Opcode.SMSG_PROFILE_RESPONSE)]
+        public static void HandleProfileResponse(Packet packet)
         {
             string username = packet.ReadUTF8String();
 
@@ -147,7 +89,8 @@ namespace ShipsClient.Protocol
             });
         }
 
-        private static void HandleGetGamesResponse(Packet packet)
+        [Parser(Opcode.SMSG_GET_GAMES_RESPONSE)]
+        public static void HandleGetGamesResponse(Packet packet)
         {
             int count = packet.ReadInt32();
             if (count == 0) // На сервер не оказалось игр к которым можно подключиться
@@ -170,7 +113,8 @@ namespace ShipsClient.Protocol
             });
         }
 
-        private static void HandleBattleInitialBattle(Packet packet)
+        [Parser(Opcode.SMSG_BATTLE_INITIAL_BATTLE)]
+        public static void HandleBattleInitialBattle(Packet packet)
         {
             var battleId = packet.ReadInt32();
             var responseCode = (BattleResponse) packet.ReadUInt8();
@@ -180,7 +124,8 @@ namespace ShipsClient.Protocol
             });
         }
 
-        private static void HandleBattleShotResult(Packet packet)
+        [Parser(Opcode.SMSG_BATTLE_SHOT_RESULT)]
+        public static void HandleBattleShotResult(Packet packet)
         {
             var result = packet.ReadUInt8();
             var x = packet.ReadUInt8();
@@ -191,7 +136,8 @@ namespace ShipsClient.Protocol
             });
         }
 
-        private static void HandleBattleCanShot(Packet packet)
+        [Parser(Opcode.SMSG_BATTLE_CAN_SHOT)]
+        public static void HandleBattleCanShot(Packet packet)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -199,7 +145,8 @@ namespace ShipsClient.Protocol
             });
         }
 
-        private static void HandleBattleResponse(Packet packet)
+        [Parser(Opcode.SMSG_BATTLE_RESPONSE)]
+        public static void HandleBattleResponse(Packet packet)
         {
             var responseCode = (BattleResponse) packet.ReadUInt8();
             switch (responseCode)
@@ -216,12 +163,11 @@ namespace ShipsClient.Protocol
                     });
                     break;
                 }
-                default:
-                    break;
             }
         }
 
-        private static void HandleBattleOponentJoined(Packet packet)
+        [Parser(Opcode.SMSG_BATTLE_OPONENT_JOINED)]
+        public static void HandleBattleOponentJoined(Packet packet)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -233,7 +179,8 @@ namespace ShipsClient.Protocol
             });
         }
 
-        private static void HandleBattleShipDrowned(Packet packet)
+        [Parser(Opcode.SMSG_BATTLE_SHIP_DROWNED)]
+        public static void HandleBattleShipDrowned(Packet packet)
         {
             var count = packet.ReadUInt8();
             Application.Current.Dispatcher.Invoke(() =>
@@ -253,7 +200,8 @@ namespace ShipsClient.Protocol
             });
         }
 
-        private static void HandleBattleOponentLeave(Packet packet)
+        [Parser(Opcode.SMSG_BATTLE_OPONENT_LEAVE)]
+        public static void HandleBattleOponentLeave(Packet packet)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -261,7 +209,8 @@ namespace ShipsClient.Protocol
             });
         }
 
-        private static void HandleBattleFinish(Packet packet)
+        [Parser(Opcode.SMSG_BATTLE_FINISH)]
+        public static void HandleBattleFinish(Packet packet)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -269,7 +218,8 @@ namespace ShipsClient.Protocol
             });
         }
 
-        private static void HandleBattleOponentShotResult(Packet packet)
+        [Parser(Opcode.SMSG_BATTLE_OPONENT_SHOT_RESULT)]
+        public static void HandleBattleOponentShotResult(Packet packet)
         {
             var result = (ShotResult)packet.ReadUInt8();
             var x = packet.ReadUInt8();
@@ -280,7 +230,8 @@ namespace ShipsClient.Protocol
             });
         }
 
-        private static void HandleGetStatisticsResponse(Packet packet)
+        [Parser(Opcode.SMSG_GET_STATISTICS_RESPONSE)]
+        public static void HandleGetStatisticsResponse(Packet packet)
         {
             var lastBattle = packet.ReadUInt32();
             var wins = packet.ReadUInt16();
@@ -298,7 +249,8 @@ namespace ShipsClient.Protocol
             });
         }
 
-        private static void HandleChatMessage(Packet packet)
+        [Parser(Opcode.SMSG_CHAT_MESSAGE)]
+        public static void HandleChatMessage(Packet packet)
         {
             var username = packet.ReadUTF8String();
             var text = packet.ReadUTF8String();

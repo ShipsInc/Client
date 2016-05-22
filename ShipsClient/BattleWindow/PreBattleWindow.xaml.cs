@@ -5,6 +5,7 @@ using ShipsClient.Common;
 using ShipsClient.Enums;
 using ShipsClient.Game;
 using ShipsClient.Network;
+using ShipsClient.Protocol;
 
 namespace ShipsClient.BattleWindow
 {
@@ -64,12 +65,12 @@ namespace ShipsClient.BattleWindow
 
         private void _btBattle_Click(object sender, RoutedEventArgs e)
         {
-            Opcodes opcode = Opcodes.CMSG_BATTLE_INITIALIZATION;
+            Opcode opcode = Opcode.CMSG_BATTLE_INITIALIZATION;
             if (BattleId != 0)
-                opcode = Opcodes.CMSG_BATTLE_JOIN;
+                opcode = Opcode.CMSG_BATTLE_JOIN;
 
-            var packet = new Packet((int)opcode);
-            if (packet.Opcode == (int)Opcodes.CMSG_BATTLE_JOIN)
+            var packet = new Packet(opcode);
+            if (packet.Opcode == Opcode.CMSG_BATTLE_JOIN)
                 packet.WriteInt32(BattleId);
 
             Board.WritePacket(packet);

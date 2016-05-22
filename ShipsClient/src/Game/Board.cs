@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using ShipsClient.Common;
 using ShipsClient.Enums;
+using ShipsClient.Protocol;
 using Size = System.Drawing.Size;
 
 namespace ShipsClient.Game
@@ -389,7 +390,7 @@ namespace ShipsClient.Game
 
         public void UpdateCellState(int x, int y, ShotResult result)
         {
-            BoardCellState bState = BoardCellState.BOARD_CELL_STATE_NORMAL;
+            BoardCellState bState;
             switch (result)
             {
                 case ShotResult.SHOT_RESULT_MISSED:

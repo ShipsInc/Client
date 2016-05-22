@@ -5,6 +5,7 @@ using System.Windows.Input;
 using ShipsClient.BattleWindow;
 using ShipsClient.Common;
 using ShipsClient.Network;
+using ShipsClient.Protocol;
 
 namespace ShipsClient.MainWindow
 {
@@ -31,7 +32,7 @@ namespace ShipsClient.MainWindow
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            TCPSocket.Instance.SendPacket(new Packet((int)Opcodes.CMSG_LOGOUT));
+            TCPSocket.Instance.SendPacket(new Packet(Opcode.CMSG_LOGOUT));
 
             KeepAliveTimer.Enabled = false;
             Owner.Visibility = Visibility.Visible;
@@ -39,7 +40,7 @@ namespace ShipsClient.MainWindow
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            TCPSocket.Instance.SendPacket(new Packet((int)Opcodes.CMSG_PROFILE));
+            TCPSocket.Instance.SendPacket(new Packet(Opcode.CMSG_PROFILE));
 
             KeepAliveTimer = new Timer(30000) {Enabled = true};
             KeepAliveTimer.Elapsed += new ElapsedEventHandler(KeepAlive);
@@ -69,7 +70,7 @@ namespace ShipsClient.MainWindow
 
         private void KeepAlive(object source, ElapsedEventArgs e)
         {
-            Packet packet = new Packet((int) Opcodes.CMSG_KEEP_ALIVE);
+            Packet packet = new Packet(Opcode.CMSG_KEEP_ALIVE);
             TCPSocket.Instance.SendPacket(packet);
         }
 
@@ -83,7 +84,7 @@ namespace ShipsClient.MainWindow
 
         private void _btJoinGame_Click(object sender, RoutedEventArgs e)
         {
-            var packet = new Packet((int)Opcodes.CMSG_GET_GAMES);
+            var packet = new Packet(Opcode.CMSG_GET_GAMES);
             TCPSocket.Instance.SendPacket(packet);
         }
 
@@ -106,7 +107,7 @@ namespace ShipsClient.MainWindow
 
         private void _btProfile_Click(object sender, RoutedEventArgs e)
         {
-            TCPSocket.Instance.SendPacket(new Packet((int)Opcodes.CMSG_GET_STATISTICS));
+            TCPSocket.Instance.SendPacket(new Packet(Opcode.CMSG_GET_STATISTICS));
         }
     }
 }
