@@ -1,0 +1,23 @@
+# version format
+version: 1.1.{build}
+
+# branches to build
+branches:
+  # whitelist
+  only:
+    - master
+
+platform: Any CPU
+
+configuration: Release
+
+artifacts:
+ # pushing a single file
+ - path: shipsClient.zip
+ 
+ # pushing a single file with environment variable in path and "Deployment name" specified
+ - path: ShipsClient/bin/$(configuration)
+   name: shipsApp
+
+ # pushing a single file
+ - path: '**\*.nupkg'
